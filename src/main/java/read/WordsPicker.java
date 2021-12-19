@@ -1,6 +1,10 @@
 package read;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
 import org.json.*;
 
 public class WordsPicker {
@@ -20,26 +24,26 @@ public class WordsPicker {
     }
 
     private ArrayList<String> filterDescription(String description) {
-        String[] parts = description.split(" ");
-        ArrayList<String> parts_ = new ArrayList<String>();
-        for (String part : parts) {
-            parts_.add(part);
+        // split, capitalize, cut words with length<6
+        System.out.println("Filtering description...");
+        String[] parts = description.split("[^a-zA-Z]+");
+        ArrayList<String> words = new ArrayList<String>();
+        Set<String> parts_set = new HashSet<String>(Arrays.asList(parts));
+        for (String word : parts_set) {
+            if (word.length()>=6) {
+                words.add(word.toUpperCase());
+            }
         }
-        return parts_;
+        return words;
     }
     
     public WordsPicker(String requestUrl) {
+        System.out.println("Initializing words picker...");
         DataFetcher fetcher = new DataFetcher(requestUrl);
         fetcher.fetchData();
         JSONObject data = fetcher.getRequestData();
         String description = data.getString("description");
         setDescription(description);
     }
-
-    public static void main(String[] args) {
-        String requestUrl = "https://openlibrary.org/works/OL45883W.json";
-        WordsPicker wordsPicker = new WordsPicker(requestUrl);
-        System.out.println(wordsPicker.getWords().toString());
-    }
-    
+   
 }

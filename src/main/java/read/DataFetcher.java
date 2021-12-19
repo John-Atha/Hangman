@@ -11,7 +11,6 @@ public class DataFetcher {
     private URI uri;
     private String requestDataStr;
     private JSONObject requestData;
-    private String data;
 
     public void setUrl(String url) {
         try {
@@ -33,6 +32,7 @@ public class DataFetcher {
 
     private void setRequestDataStr(String requestDataStr) {
         this.requestDataStr = requestDataStr;
+        System.out.println("Parsing description...");
         if (!requestDataStr.equals("error")) {
             JSONObject data = new JSONObject(this.requestDataStr);
             this.requestData = data;
@@ -48,6 +48,7 @@ public class DataFetcher {
     }
 
     public DataFetcher(String url) {
+        System.out.println("Initializing data fetcher...");
         setUrl(url);
     }
 
@@ -60,6 +61,7 @@ public class DataFetcher {
         HttpClient client = HttpClient
             .newHttpClient();
         try{
+            System.out.println("Fetching data...");
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             setRequestDataStr(response.body());
         }
