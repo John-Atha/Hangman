@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 import exceptions.InvalidCountException;
 import exceptions.InvalidRangeException;
+import exceptions.NotFoundException;
 import exceptions.UnbalancedException;
 import exceptions.UndersizeException;
 
@@ -16,24 +17,32 @@ public class DictMaker {
 
     private ArrayList<String> words;
     private String ID;
+    private String BASEURL;
 
-    public DictMaker(String ID, String url) throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException {
+    public DictMaker(String ID, String BASEURL) throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException, NotFoundException {
         System.out.println("Initializing dictionary maker...");
         this.setID(ID);
+        this.setBaseurl(BASEURL);
+        String url = BASEURL + ID + ".json";
         WordsPicker wordsPicker = new WordsPicker(url);
         setWords(wordsPicker.getWords());
-        boolean isValid = this.isValid();
-        if (isValid) {
-            // save to file, todo...
-        }
+        this.validate();
     }
 
     public String getId() {
         return this.ID;
     }
-    public void setID(String ID) {
+    private void setID(String ID) {
         this.ID = ID;
     }
+
+    public String getBaseurl() {
+        return this.BASEURL;
+    }
+    private void setBaseurl(String BASEURL) {
+        this.BASEURL = BASEURL;
+    }
+
 
     public ArrayList<String> getWords() {
         return this.words;
@@ -42,7 +51,7 @@ public class DictMaker {
         this.words = words;
     }
 
-    public boolean isValid() throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException {
+    public void validate() throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException {
         System.out.println("Validating dictionary...");
         String[] words_array = this.words.toArray(new String[0]);
         Set<String> words_set = new HashSet<String>(Arrays.asList(words_array));
@@ -64,7 +73,6 @@ public class DictMaker {
         if (this.words.size()<20) {
             throw new UndersizeException();
         }
-        return true;
     }
 
     public void write() {
@@ -93,10 +101,10 @@ public class DictMaker {
         }
 
     }
-    public static void main(String[] args) throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException {
+    public static void main(String[] args) throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException, NotFoundException {
         String ID = "OL45883W";
-        String requestUrl = "https://openlibrary.org/works/" + ID + ".json";
-        DictMaker dict = new DictMaker(ID, requestUrl);
+        String BASEURL = "https://openlibrary.org/works/";
+        DictMaker dict = new DictMaker(ID, BASEURL);
         dict.write();
     }
 }

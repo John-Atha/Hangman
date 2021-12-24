@@ -1,4 +1,5 @@
 /home/atha/hangman-java/src/main/java/exceptions/InvalidRangeException.java
+/home/atha/hangman-java/src/main/java/exceptions/NotFoundException.java
 /home/atha/hangman-java/src/main/java/read/DataFetcher.java
 /home/atha/hangman-java/src/main/java/read/DictMaker.java
 /home/atha/hangman-java/src/main/java/exceptions/UndersizeException.java

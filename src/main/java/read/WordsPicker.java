@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 import org.json.*;
 
+import exceptions.NotFoundException;
+
 public class WordsPicker {
 
     private String description;
@@ -37,7 +39,7 @@ public class WordsPicker {
         return words;
     }
     
-    public WordsPicker(String requestUrl) {
+    public WordsPicker(String requestUrl) throws NotFoundException {
         System.out.println("Initializing words picker...");
         DataFetcher fetcher = new DataFetcher(requestUrl);
         fetcher.fetchData();

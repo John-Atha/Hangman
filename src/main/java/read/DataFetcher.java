@@ -1,10 +1,11 @@
 package read;
 
-import java.io.IOException;
 import java.net.*;
 import java.net.http.*;
 import java.net.http.HttpResponse.*;
 import org.json.*;
+
+import exceptions.NotFoundException;
 
 public class DataFetcher {
 
@@ -52,7 +53,7 @@ public class DataFetcher {
         setUrl(url);
     }
 
-    public void fetchData() {
+    public void fetchData() throws NotFoundException {
         HttpRequest request = HttpRequest
             .newBuilder()
             .uri(this.uri)
@@ -66,7 +67,7 @@ public class DataFetcher {
             setRequestDataStr(response.body());
         }
         catch (Exception e) {
-            setRequestDataStr("Could not fetch data");
+            throw new NotFoundException();
         }
     }
 
