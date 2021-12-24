@@ -101,10 +101,4 @@ public class DictMaker {
         }
 
     }
-    public static void main(String[] args) throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException, NotFoundException {
-        String ID = "OL45883W";
-        String BASEURL = "https://openlibrary.org/works/";
-        DictMaker dict = new DictMaker(ID, BASEURL);
-        dict.write();
-    }
 }

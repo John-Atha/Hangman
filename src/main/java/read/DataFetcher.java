@@ -2,8 +2,7 @@ package read;
 
 import java.net.*;
 import java.net.http.*;
-import java.net.http.HttpResponse.*;
-import org.json.*;
+import org.json.JSONObject;
 
 import exceptions.NotFoundException;
 
@@ -63,7 +62,7 @@ public class DataFetcher {
             .newHttpClient();
         try{
             System.out.println("Fetching data...");
-            HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             setRequestDataStr(response.body());
         }
         catch (Exception e) {
