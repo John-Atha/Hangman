@@ -44,8 +44,13 @@ public class WordsPicker {
         DataFetcher fetcher = new DataFetcher(requestUrl);
         fetcher.fetchData();
         JSONObject data = fetcher.getRequestData();
-        String description = data.getString("description");
-        setDescription(description);
+        try {
+            String description = data.getString("description");
+            setDescription(description);
+        }
+        catch (Exception e) {
+            throw new NotFoundException();
+        }
     }
    
 }

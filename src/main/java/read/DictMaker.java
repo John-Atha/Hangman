@@ -18,11 +18,13 @@ public class DictMaker {
     private ArrayList<String> words;
     private String ID;
     private String BASEURL;
+    private String ID_dict;
 
-    public DictMaker(String ID, String BASEURL) throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException, NotFoundException {
+    public DictMaker(String ID, String BASEURL, String ID_dict) throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException, NotFoundException {
         System.out.println("Initializing dictionary maker...");
         this.setID(ID);
         this.setBaseurl(BASEURL);
+        this.setID_dict(ID_dict);
         String url = BASEURL + ID + ".json";
         WordsPicker wordsPicker = new WordsPicker(url);
         setWords(wordsPicker.getWords());
@@ -43,6 +45,12 @@ public class DictMaker {
         this.BASEURL = BASEURL;
     }
 
+    public String getDictId() {
+        return this.ID_dict;
+    }
+    private void setID_dict(String id_dict) {
+        this.ID_dict = id_dict;
+    }
 
     public ArrayList<String> getWords() {
         return this.words;
@@ -76,7 +84,7 @@ public class DictMaker {
     }
 
     public void write() {
-        String filename = "medialab/hangman_DICTIONARΥ-" + this.ID + ".txt";
+        String filename = "medialab/hangman_DICTIONARΥ-" + this.ID_dict + ".txt";
         File file = new File(filename);
         try {
             if (file.createNewFile()) {

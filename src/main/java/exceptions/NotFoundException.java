@@ -1,8 +1,12 @@
 package exceptions;
 
 public class NotFoundException extends Exception {
+    private String message = "Invalid URL";
     public NotFoundException() {
-        super("Could not fecth data, try another URL");
+        super("Invalid URL");
     }
-    
+
+    public String getMessage() {
+        return this.message;
+    }
 }
