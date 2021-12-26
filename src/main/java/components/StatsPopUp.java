@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.hangman.Game;
 
 import java.util.ArrayList;
 
@@ -24,21 +25,21 @@ public class StatsPopUp {
     @FXML
     private VBox vBox;
 
-    private ArrayList<String> words;
+    private Game game;
     private float count1 = 0f;
     private float count2 = 0f;
     private float count3 = 0f;
     private float count_all = 0f;
 
-    public StatsPopUp(ArrayList<String> words) {
-        this.words = words;
-        this.count_all = words.size();
+    public StatsPopUp(Game game) {
+        this.game = game;
+        this.count_all = this.game.getWords().size();
         this.count();
         this.display();
     }
 
     private void count() {
-        for (String word: this.words) {
+        for (String word: this.game.getWords()) {
             if (word.length()==6) {
                 this.count1 ++;
             }

@@ -1,9 +1,11 @@
 package main.hangman;
 
+import components.GameHeader;
 import components.TopMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -14,22 +16,53 @@ public class App extends Application {
 
     private String menuItemStyles = "-fx-font-size: 50px";
 
+    public static class ReloadWords implements Runnable {
+        public void run(Game game, GameHeader gameHeader) {
+            System.out.println("Starting game with:");
+            System.out.println(game.getWords());
+            gameHeader.setGame(game);
+            if (game.getWords().size() != 0) {
+                game.newRound();
+                gameHeader.setMessage("", "");
+            } else {
+                gameHeader.setMessage("Load a dictionary to begin.", "-fx-fill: red;");
+            }
+        }
+
+        @Override
+        public void run() {
+            ;
+        }
+    }
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Medialab Hangman");
 
-        ArrayList<String> words = new ArrayList<String>();
+        VBox page = new VBox();
+        BorderPane main = new BorderPane();
 
-        VBox vBox = new VBox();
+        Game game = new Game(new ArrayList<String>());
 
-        TopMenu topmenu = new TopMenu(stage, words);
+        GameHeader gameHeader = new GameHeader(game, main);
+        if (game.isPlaying()) {
+            main.setTop(gameHeader.getVBox());
+        }
+        else {
+            main.setTop(null);
+        }
+
+        //border.setLeft(addVBox());
+        //border.setCenter(addGridPane());
+        //border.setRight(addFlowPane());
+
+        TopMenu topmenu = new TopMenu(stage, game, gameHeader);
         MenuBar menuBar = topmenu.getMenuBar();
-
         menuBar.setStyle(menuItemStyles);
 
-        vBox.getChildren().add(menuBar);
+        page.getChildren().add(menuBar);
+        page.getChildren().add(main);
 
-        Scene scene = new Scene(vBox, 1000, 800);
+        Scene scene = new Scene(page, 1000, 800);
         stage.setScene(scene);
         stage.show();
     }

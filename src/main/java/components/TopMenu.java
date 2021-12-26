@@ -8,31 +8,32 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.hangman.App;
+import main.hangman.Game;
 
 import java.util.ArrayList;
 
 public class TopMenu {
     private MenuBar menuBar;
     private Stage stage;
-    private ArrayList<String> words;
-
-
+    private Game game;
+    private App.ReloadWords reloadWords;
     public MenuBar getMenuBar() {
         return this.menuBar;
     }
 
-    public TopMenu(Stage stage, ArrayList<String> words) {
+
+    public TopMenu(Stage stage, Game game, GameHeader gameHeader) {
         this.menuBar = new MenuBar();
         this.stage = stage;
-        this.words = words;
-
+        this.game = game;
+        this.reloadWords = new App.ReloadWords();
         Menu application = new Menu("Application");
 
         MenuItem start = new MenuItem("start");
         start.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                System.out.println("Starting game with:");
-                System.out.println(words);
+                reloadWords.run(game, gameHeader);
             }
         });
 
@@ -50,7 +51,7 @@ public class TopMenu {
         MenuItem load =  new MenuItem("load");
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(words);
+                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadWords);
                 Stage popup = loadDictPopUp.getPopup();
                 popup.initOwner(stage);
                 popup.initModality(Modality.APPLICATION_MODAL);
@@ -72,7 +73,7 @@ public class TopMenu {
         MenuItem dictionary = new MenuItem("dictionary");
         dictionary.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                StatsPopUp statsPopUp = new StatsPopUp(words);
+                StatsPopUp statsPopUp = new StatsPopUp(game);
                 Stage popup = statsPopUp.getPopup();
                 popup.initOwner(stage);
                 popup.initModality(Modality.APPLICATION_MODAL);
