@@ -30,7 +30,7 @@ public class HelloApplication extends Application {
 
     private String menuItemStyles = "-fx-font-size: 50px";
 
-    private MenuBar MyMenu(Stage stage, ArrayList<String> words) {
+    /*private MenuBar MyMenu(Stage stage, ArrayList<String> words) {
         MenuBar menubar = new MenuBar();
 
         Menu application = new Menu("Application");
@@ -94,25 +94,24 @@ public class HelloApplication extends Application {
         menubar.getMenus().addAll(application, details);
         return menubar;
     }
+    */
 
     @Override
     public void start(Stage stage) throws IOException {
-        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        //Scene scene = new Scene(fxmlLoader.load(), 700, 700);
         stage.setTitle("Medialab Hangman");
-        //stage.setScene(scene);
-        //stage.show();
 
         ArrayList<String> words = new ArrayList<String>();
 
         VBox vBox = new VBox();
 
-        MenuBar menuBar = MyMenu(stage, words);
+        TopMenu topmenu = new TopMenu(stage, words);
+        MenuBar menuBar = topmenu.getMenuBar();
+
         menuBar.setStyle(menuItemStyles);
+
         vBox.getChildren().add(menuBar);
 
         Scene scene = new Scene(vBox, 1000, 800);
-
 
         stage.setScene(scene);
         stage.show();
