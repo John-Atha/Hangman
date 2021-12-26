@@ -2,6 +2,7 @@ package main.hangman;
 
 import components.CreateDictPopUp;
 import components.LoadDictPopUp;
+import components.StatsPopUp;
 import components.TopMenu;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -33,8 +34,8 @@ public class HelloApplication extends Application {
         MenuBar menubar = new MenuBar();
 
         Menu application = new Menu("Application");
-        MenuItem start = new MenuItem("start");
 
+        MenuItem start = new MenuItem("start");
         start.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 System.out.println("Starting game with:");
@@ -43,7 +44,6 @@ public class HelloApplication extends Application {
         });
 
         MenuItem create = new MenuItem("create");
-
         create.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 CreateDictPopUp createDictPopUp = new CreateDictPopUp();
@@ -55,7 +55,6 @@ public class HelloApplication extends Application {
         });
 
         MenuItem load =  new MenuItem("load");
-
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 LoadDictPopUp loadDictPopUp = new LoadDictPopUp(words);
@@ -67,7 +66,6 @@ public class HelloApplication extends Application {
         });
 
         MenuItem exit = new MenuItem("exit");
-
         exit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Platform.exit();
@@ -77,7 +75,18 @@ public class HelloApplication extends Application {
         application.getItems().addAll(start, create, load, exit);
 
         Menu details = new Menu("Details");
+
         MenuItem dictionary = new MenuItem("dictionary");
+        dictionary.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                StatsPopUp statsPopUp = new StatsPopUp(words);
+                Stage popup = statsPopUp.getPopup();
+                popup.initOwner(stage);
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.showAndWait();
+            }
+        });
+
         MenuItem rounds = new MenuItem("rounds");
         MenuItem solution = new MenuItem("solution");
         details.getItems().addAll(dictionary, rounds, solution);
