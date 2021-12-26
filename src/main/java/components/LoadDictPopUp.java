@@ -12,17 +12,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import read.DictMaker;
+import read.DictReader;
 
-public class CreateDictPopUp {
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class LoadDictPopUp {
 
     @FXML
     private Label label1;
     @FXML
     private TextField dictField;
-    @FXML
-    private Label label2;
-    @FXML
-    private TextField idField;
     @FXML
     private Button submit_button;
     @FXML
@@ -32,13 +33,16 @@ public class CreateDictPopUp {
     @FXML
     private VBox vBox;
 
-    public CreateDictPopUp() {
+    private ArrayList<String> words;
+
+    public LoadDictPopUp(ArrayList<String> words) {
+        this.words = words;
 
         String textFieldsStyling =
                 "-fx-font-size: 30px;" +
-                "-fx-border-insets: 10px;" +
-                "-fx-background-insets: 10px;"+
-                "-fx-max-width: 500px";
+                        "-fx-border-insets: 10px;" +
+                        "-fx-background-insets: 10px;"+
+                        "-fx-max-width: 500px";
 
         String labelsStyling =
                 "-fx-font-size: 30px;";
@@ -46,17 +50,13 @@ public class CreateDictPopUp {
         popup.setTitle("Create dictionary");
         this.vBox = new VBox();
 
-        this.label1 = new Label("Insert the id of the dictionary you would like to create.");
-        this.label2 = new Label("Insert the id of the open library book you would like to use as source.");
+        this.label1 = new Label("Insert the id of the dictionary you would like to load.");
         this.submit_button = new Button("Submit");
         this.dictField = new TextField();
-        this.idField = new TextField();
         this.message = new Text();
 
         this.vBox.getChildren().add(this.label1);
         this.vBox.getChildren().add(this.dictField);
-        this.vBox.getChildren().add(this.label2);
-        this.vBox.getChildren().add(this.idField);
         this.vBox.getChildren().add(this.submit_button);
         this.vBox.getChildren().add(this.message);
 
@@ -65,15 +65,13 @@ public class CreateDictPopUp {
         );
 
         this.label1.setStyle(labelsStyling);
-        this.label2.setStyle(labelsStyling);
 
-        this.idField.setStyle(textFieldsStyling);
         this.dictField.setStyle(textFieldsStyling);
 
         this.submit_button.setStyle(
                 "-fx-font-size: 30px;" +
-                "-fx-border-insets: 10px;" +
-                "-fx-background-insets: 10px;"
+                        "-fx-border-insets: 10px;" +
+                        "-fx-background-insets: 10px;"
         );
 
         this.submit_button.setOnAction(new EventHandler<ActionEvent>() {
@@ -90,22 +88,25 @@ public class CreateDictPopUp {
         return this.popup;
     }
 
+    public ArrayList<String> getWords() {
+        return this.words;
+    }
+
     private void submit() {
         String ID_dict = dictField.getText();
-        String ID_chosen = idField.getText(); // OL45883W
-        String BASEURL = "https://openlibrary.org/works/";
 
-        // read json and generate the dictionaries
+        // read the words from the dictionaries and pick one
+        DictReader reader = new DictReader(ID_dict);
+
         try {
-            DictMaker dict = new DictMaker(ID_chosen, BASEURL, ID_dict);
-            dict.write();
-
-            this.message.setText("Built dictionary with id " + ID_chosen + " successfully.");
+            reader.read();
+            this.words.addAll(reader.getWords());
+            this.message.setText("Read dictionary with id " + ID_dict + " successfully.");
             this.message.setStyle("-fx-font-size: 30px; -fx-fill: green;");
 
         }
-        catch (InvalidCountException | InvalidRangeException | UndersizeException | UnbalancedException | NotFoundException e) {
-            this.message.setText(e.getMessage() + ", please try another URL.");
+        catch (FileNotFoundException e) {
+            this.message.setText("Dictionary " +  reader.getName() + " not found, please try another ID");
             this.message.setStyle("-fx-font-size: 30px; -fx-fill: red;");
         }
     }

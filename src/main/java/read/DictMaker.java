@@ -84,7 +84,7 @@ public class DictMaker {
     }
 
     public void write() {
-        String filename = "medialab/hangman_DICTIONARΥ-" + this.ID_dict + ".txt";
+        String filename = "medialab/hangman_DICTIONARY-" + this.ID_dict + ".txt";
         File file = new File(filename);
         try {
             if (file.createNewFile()) {

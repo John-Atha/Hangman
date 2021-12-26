@@ -11,12 +11,10 @@ public class ReadDicts {
     private String dirName;
     private ArrayList<File> filenames;
     private ArrayList<String> words;
-    private ArrayList<String> messages;
 
     public ReadDicts(String dirName) {
         this.setDirName(dirName);
         this.setWords(new ArrayList<String>());
-        this.setMessages(new ArrayList<String>());
         this.setFilenames(new ArrayList<File>());
 
         File folder = new File(dirName);
@@ -48,13 +46,6 @@ public class ReadDicts {
     }
     private void setWords(ArrayList<String> words) {
         this.words = words;
-    }
-
-    public ArrayList<String> getMessages() {
-        return this.messages;
-    }
-    private void setMessages(ArrayList<String> messages) {
-        this.messages = messages;
     }
 
     private void readOneFile(File file) {

@@ -1,8 +1,10 @@
 package main.hangman;
 
 import components.CreateDictPopUp;
+import components.LoadDictPopUp;
 import components.TopMenu;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -21,16 +23,24 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class HelloApplication extends Application {
 
     private String menuItemStyles = "-fx-font-size: 50px";
 
-    private MenuBar MyMenu(Stage stage, VBox vBox) {
+    private MenuBar MyMenu(Stage stage, ArrayList<String> words) {
         MenuBar menubar = new MenuBar();
 
         Menu application = new Menu("Application");
         MenuItem start = new MenuItem("start");
+
+        start.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println("Starting game with:");
+                System.out.println(words.toString());
+            }
+        });
 
         MenuItem create = new MenuItem("create");
 
@@ -45,7 +55,25 @@ public class HelloApplication extends Application {
         });
 
         MenuItem load =  new MenuItem("load");
+
+        load.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(words);
+                Stage popup = loadDictPopUp.getPopup();
+                popup.initOwner(stage);
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.showAndWait();
+            }
+        });
+
         MenuItem exit = new MenuItem("exit");
+
+        exit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Platform.exit();
+            }
+        });
+
         application.getItems().addAll(start, create, load, exit);
 
         Menu details = new Menu("Details");
@@ -66,9 +94,11 @@ public class HelloApplication extends Application {
         //stage.setScene(scene);
         //stage.show();
 
+        ArrayList<String> words = new ArrayList<String>();
+
         VBox vBox = new VBox();
 
-        MenuBar menuBar = MyMenu(stage, vBox);
+        MenuBar menuBar = MyMenu(stage, words);
         menuBar.setStyle(menuItemStyles);
         vBox.getChildren().add(menuBar);
 
