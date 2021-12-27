@@ -4,10 +4,13 @@ import exceptions.LoadedDictionaryException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -21,13 +24,21 @@ import java.util.ArrayList;
 public class LoadDictPopUp {
 
     @FXML
+    private Label title;
+
+    @FXML
+    private HBox hBox1;
+    @FXML
     private Label label1;
     @FXML
     private TextField dictField;
+
     @FXML
     private Button submit_button;
+
     @FXML
     private Text message;
+
     @FXML
     private Stage popup;
     @FXML
@@ -42,41 +53,41 @@ public class LoadDictPopUp {
         this.gameHeader = gameHeader;
         this.reloadHeader = reloadHeader;
 
-        String textFieldsStyling =
-                "-fx-font-size: 30px;" +
-                        "-fx-border-insets: 10px;" +
-                        "-fx-background-insets: 10px;"+
-                        "-fx-max-width: 500px";
-        String labelsStyling =
-                "-fx-font-size: 30px;";
-
         this.popup = new Stage();
-        popup.setTitle("Create dictionary");
+        popup.setTitle("Load dictionary");
+
         this.vBox = new VBox();
+        this.hBox1 = new HBox();
+
+        this.title = new Label("Load");
 
         this.label1 = new Label("Insert the id of the dictionary you would like to load.");
-        this.submit_button = new Button("Submit");
         this.dictField = new TextField();
+        this.hBox1.getChildren().add(this.label1);
+        this.hBox1.getChildren().add(this.dictField);
+
+        this.submit_button = new Button("Submit");
         this.message = new Text();
 
-        this.vBox.getChildren().add(this.label1);
-        this.vBox.getChildren().add(this.dictField);
+        this.vBox.getChildren().add(this.title);
+        this.vBox.getChildren().add(this.hBox1);
+
         this.vBox.getChildren().add(this.submit_button);
         this.vBox.getChildren().add(this.message);
 
         this.vBox.setStyle(
-                "-fx-padding: 10px"
+                "-fx-padding: 100px 10px 0px 10px"
         );
+        this.vBox.setAlignment(Pos.TOP_CENTER);
+        this.hBox1.setAlignment(Pos.CENTER);
 
-        this.label1.setStyle(labelsStyling);
+        this.title.setPadding(new Insets(40));
+        this.title.setStyle(MyStyles.title);
+        this.label1.setStyle(MyStyles.label);
 
-        this.dictField.setStyle(textFieldsStyling);
+        this.dictField.setStyle(MyStyles.textField);
 
-        this.submit_button.setStyle(
-                "-fx-font-size: 30px;" +
-                        "-fx-border-insets: 10px;" +
-                        "-fx-background-insets: 10px;"
-        );
+        this.submit_button.setStyle(MyStyles.button);
 
         this.submit_button.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
@@ -84,7 +95,7 @@ public class LoadDictPopUp {
             }
         });
 
-        Scene scene = new Scene(vBox, 600, 400);
+        Scene scene = new Scene(vBox, 1800, 1000);
         popup.setScene(scene);
     }
 

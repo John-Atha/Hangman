@@ -70,7 +70,7 @@ public class RoundsPopUp {
         this.container.setStyle(
                 "-fx-padding: 10px"
         );
-        Scene scene = new Scene(this.container, 600, 400);
+        Scene scene = new Scene(container, 1800, 1000);
         popup.setScene(scene);
     }
 

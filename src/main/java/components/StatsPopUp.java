@@ -2,12 +2,14 @@ package components;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.hangman.Game;
 
-import java.util.ArrayList;
 
 public class StatsPopUp {
     private String textStyles = "-fx-font-size: 30px;";
@@ -15,11 +17,8 @@ public class StatsPopUp {
     @FXML
     private Text allWords;
     @FXML
-    private Text words6;
-    @FXML
-    private Text words7to9;
-    @FXML
-    private Text words10up;
+    private TableView table;
+
     @FXML
     private Stage popup;
     @FXML
@@ -65,31 +64,34 @@ public class StatsPopUp {
     private void display() {
         this.popup = new Stage();
         popup.setTitle("Dictionary statistics");
-        this.vBox = new VBox();
 
         if (this.count_all>0) {
-            this.allWords = new Text("All words: " + Math.round(this.count_all));
-            this.words6 = new Text("Words with 6 letters: " + this.myRound(this.count1) + "%");
-            this.words7to9 = new Text("Words with more than 7 and less than 9 letters: " + this.myRound(this.count2) + "%");
-            this.words10up = new Text("Words with more than 10 letters: " + this.myRound(this.count3) + "%");
 
+            this.table = new TableView();
 
-            this.vBox.getChildren().add(this.allWords);
-            this.vBox.getChildren().add(this.words6);
-            this.vBox.getChildren().add(this.words7to9);
-            this.vBox.getChildren().add(this.words10up);
+            TableColumn<Row, String> column1 = new TableColumn<>("Category");
+            column1.setCellValueFactory(new PropertyValueFactory<>("description"));
+            TableColumn<Row, String> column2 = new TableColumn<>("Value");
+            column2.setCellValueFactory(new PropertyValueFactory<>("value"));
 
-            this.allWords.setStyle(textStyles);
-            this.words6.setStyle(textStyles);
-            this.words7to9.setStyle(textStyles);
-            this.words10up.setStyle(textStyles);
+            this.table.getColumns().add(column1);
+            this.table.getColumns().add(column2);
+            this.table.getItems().add(new Row("All words", Math.round(this.count_all)+""));
+            this.table.getItems().add(new Row("Words with 6 letters", this.myRound(this.count1) + "%"));
+            this.table.getItems().add(new Row("Words with more than 7 and less than 9 letters", this.myRound(this.count2) + "%"));
+            this.table.getItems().add(new Row("Words with more than 10 letters", this.myRound(this.count3) + "%"));
+
+            column1.setStyle(MyStyles.tableCell);
+            column2.setStyle(MyStyles.tableCell);
+            column1.prefWidthProperty().bind(table.widthProperty().multiply(0.7));
+            column2.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
+
+            this.vBox = new VBox(this.table);
         }
         else {
+            this.vBox = new VBox();
             this.allWords = new Text("No words loaded, please load a dictionary from the option Application->Load.");
-            this.allWords.setStyle(
-                    textStyles+
-                    "-fx-fill: red;"
-            );
+            this.allWords.setStyle(MyStyles.error);
             this.vBox.getChildren().add(this.allWords);
         }
 
@@ -97,7 +99,7 @@ public class StatsPopUp {
                 "-fx-padding: 10px"
         );
 
-        Scene scene = new Scene(vBox, 600, 400);
+        Scene scene = new Scene(vBox, 1800, 1000);
         popup.setScene(scene);
     }
 

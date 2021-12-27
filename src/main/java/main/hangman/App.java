@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class App extends Application {
 
-    private String menuItemStyles = "-fx-font-size: 50px";
+    private String menuItemStyles = "-fx-font-size: 50px;";
 
     public static class ReloadHeader implements Runnable {
         public void run(Game game, GameHeader gameHeader) {
@@ -63,8 +63,10 @@ public class App extends Application {
         page.getChildren().add(menuBar);
         page.getChildren().add(main);
 
-        Scene scene = new Scene(page, 1000, 800);
+        Scene scene = new Scene(page, 2000, 1800);
         stage.setScene(scene);
+        // stage.setHeight(2000);
+        // stage.setWidth(1800);
         stage.show();
     }
 

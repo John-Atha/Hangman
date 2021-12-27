@@ -11,4 +11,7 @@ module main.hangman {
 
     opens main.hangman to javafx.fxml;
     exports main.hangman;
+
+    opens components to javafx.fxml;
+    exports components;
 }
