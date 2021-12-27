@@ -1,6 +1,6 @@
 package components;
 
-import exceptions.*;
+import exceptions.LoadedDictionaryException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,11 +13,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.hangman.App;
 import main.hangman.Game;
-import read.DictMaker;
 import read.DictReader;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class LoadDictPopUp {
@@ -37,12 +35,12 @@ public class LoadDictPopUp {
 
     private Game game;
     private GameHeader gameHeader;
-    private App.ReloadWords reloadWords;
+    private App.ReloadHeader reloadHeader;
 
-    public LoadDictPopUp(Game game, GameHeader gameHeader, App.ReloadWords reloadWords) {
+    public LoadDictPopUp(Game game, GameHeader gameHeader, App.ReloadHeader reloadHeader) {
         this.game = game;
         this.gameHeader = gameHeader;
-        this.reloadWords = reloadWords;
+        this.reloadHeader = reloadHeader;
 
         String textFieldsStyling =
                 "-fx-font-size: 30px;" +
@@ -102,10 +100,9 @@ public class LoadDictPopUp {
 
         try {
             reader.read();
-            ArrayList<String> temp_words = new ArrayList<String>();
-            temp_words = this.game.getWords();
-            temp_words.addAll(reader.getWords());
-            this.game.setWords(temp_words);
+            // ArrayList<String> temp_words = new ArrayList<String>();
+            // temp_words = this.game.getWords();
+            this.game.addDict(ID_dict, reader.getWords());
             this.message.setText("Read dictionary with id " + ID_dict + " successfully.");
             this.message.setStyle("-fx-font-size: 30px; -fx-fill: green;");
         }
@@ -113,6 +110,10 @@ public class LoadDictPopUp {
             this.message.setText("Dictionary " +  reader.getName() + " not found, please try another ID");
             this.message.setStyle("-fx-font-size: 30px; -fx-fill: red;");
         }
-        this.reloadWords.run(this.game, this.gameHeader);
+        catch (LoadedDictionaryException e) {
+            this.message.setText("Dictionary " +  reader.getName() + " already loaded, please try another ID");
+            this.message.setStyle("-fx-font-size: 30px; -fx-fill: red;");
+        }
+        this.reloadHeader.run(this.game, this.gameHeader);
     }
 }

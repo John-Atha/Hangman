@@ -11,13 +11,11 @@ import javafx.stage.Stage;
 import main.hangman.App;
 import main.hangman.Game;
 
-import java.util.ArrayList;
-
 public class TopMenu {
     private MenuBar menuBar;
     private Stage stage;
     private Game game;
-    private App.ReloadWords reloadWords;
+    private App.ReloadHeader reloadHeader;
     public MenuBar getMenuBar() {
         return this.menuBar;
     }
@@ -27,13 +25,13 @@ public class TopMenu {
         this.menuBar = new MenuBar();
         this.stage = stage;
         this.game = game;
-        this.reloadWords = new App.ReloadWords();
+        this.reloadHeader = new App.ReloadHeader();
         Menu application = new Menu("Application");
 
         MenuItem start = new MenuItem("start");
         start.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                reloadWords.run(game, gameHeader);
+                reloadHeader.run(game, gameHeader);
             }
         });
 
@@ -51,7 +49,7 @@ public class TopMenu {
         MenuItem load =  new MenuItem("load");
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadWords);
+                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadHeader);
                 Stage popup = loadDictPopUp.getPopup();
                 popup.initOwner(stage);
                 popup.initModality(Modality.APPLICATION_MODAL);
@@ -82,6 +80,18 @@ public class TopMenu {
         });
 
         MenuItem rounds = new MenuItem("rounds");
+
+        rounds.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                RoundsPopUp roundsPopUp = new RoundsPopUp(game.getPrevRounds());
+                Stage popup = roundsPopUp.getPopUp();
+                popup.initOwner(stage);
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.showAndWait();
+            }
+        });
+
+
         MenuItem solution = new MenuItem("solution");
         details.getItems().addAll(dictionary, rounds, solution);
 

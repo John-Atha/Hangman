@@ -16,7 +16,7 @@ public class App extends Application {
 
     private String menuItemStyles = "-fx-font-size: 50px";
 
-    public static class ReloadWords implements Runnable {
+    public static class ReloadHeader implements Runnable {
         public void run(Game game, GameHeader gameHeader) {
             System.out.println("Starting game with:");
             System.out.println(game.getWords());
@@ -34,6 +34,7 @@ public class App extends Application {
             ;
         }
     }
+
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Medialab Hangman");

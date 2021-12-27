@@ -64,27 +64,39 @@ public class StatsPopUp {
 
     private void display() {
         this.popup = new Stage();
-        popup.setTitle("Create dictionary");
+        popup.setTitle("Dictionary statistics");
         this.vBox = new VBox();
 
-        this.allWords = new Text("All words: " + Math.round(this.count_all));
-        this.words6 = new Text("Words with 6 letters: " + this.myRound(this.count1) + "%");
-        this.words7to9 = new Text("Words with more than 7 and less than 9 letters: " + this.myRound(this.count2) + "%");
-        this.words10up = new Text("Words with more than 10 letters: " + this.myRound(this.count3) + "%");
+        if (this.count_all>0) {
+            this.allWords = new Text("All words: " + Math.round(this.count_all));
+            this.words6 = new Text("Words with 6 letters: " + this.myRound(this.count1) + "%");
+            this.words7to9 = new Text("Words with more than 7 and less than 9 letters: " + this.myRound(this.count2) + "%");
+            this.words10up = new Text("Words with more than 10 letters: " + this.myRound(this.count3) + "%");
 
 
-        this.vBox.getChildren().add(allWords);
-        this.vBox.getChildren().add(words6);
-        this.vBox.getChildren().add(words7to9);
-        this.vBox.getChildren().add(words10up);
+            this.vBox.getChildren().add(this.allWords);
+            this.vBox.getChildren().add(this.words6);
+            this.vBox.getChildren().add(this.words7to9);
+            this.vBox.getChildren().add(this.words10up);
+
+            this.allWords.setStyle(textStyles);
+            this.words6.setStyle(textStyles);
+            this.words7to9.setStyle(textStyles);
+            this.words10up.setStyle(textStyles);
+        }
+        else {
+            this.allWords = new Text("No words loaded, please load a dictionary from the option Application->Load.");
+            this.allWords.setStyle(
+                    textStyles+
+                    "-fx-fill: red;"
+            );
+            this.vBox.getChildren().add(this.allWords);
+        }
 
         this.vBox.setStyle(
                 "-fx-padding: 10px"
         );
-        this.allWords.setStyle(textStyles);
-        this.words6.setStyle(textStyles);
-        this.words7to9.setStyle(textStyles);
-        this.words10up.setStyle(textStyles);
+
         Scene scene = new Scene(vBox, 600, 400);
         popup.setScene(scene);
     }

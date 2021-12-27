@@ -1,6 +1,7 @@
 package main.hangman;
 
 import exceptions.GameOverException;
+import exceptions.LoadedDictionaryException;
 import exceptions.ShownCharException;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public class Game {
 
     private ArrayList<Integer> shown_indexes;
     private Set<Character> available_chars;
+    private ArrayList<String> loaded_dicts_ids;
+
     private int moves;
     private float prob;
     private int round;
@@ -23,6 +26,7 @@ public class Game {
     private int chances_remaining;
     private boolean playing;
     private boolean won;
+    private ArrayList<ArrayList<String>> prevRounds;
 
     public ArrayList<String> getWords() {
         return words;
@@ -52,6 +56,12 @@ public class Game {
         this.shown_indexes = shown_indexes;
     }
 
+    public ArrayList<String> getLoaded_dicts_ids() {
+        return loaded_dicts_ids;
+    }
+    public void setLoaded_dicts_ids(ArrayList<String> loaded_dicts_ids) {
+        this.loaded_dicts_ids = loaded_dicts_ids;
+    }
 
     public int getMoves() {
         return moves;
@@ -100,6 +110,13 @@ public class Game {
     }
     public void setWon(boolean won) {
         this.won = won;
+    }
+
+    public ArrayList<ArrayList<String>> getPrevRounds() {
+        return prevRounds;
+    }
+    public void setPrevRounds(ArrayList<ArrayList<String>> prevRounds) {
+        this.prevRounds = prevRounds;
     }
 
     private void pickWord() {
@@ -170,12 +187,27 @@ public class Game {
     public Game(ArrayList<String> words) {
         this.initRound(words);
         this.round = 1;
+        this.prevRounds = new ArrayList<ArrayList<String>>();
+        this.loaded_dicts_ids = new ArrayList<String>();
     }
 
     public void newRound() {
         this.initRound(this.words);
         this.round++;
         this.playing = true;
+    }
+
+    public void addDict(String dict_id, ArrayList<String> words) throws LoadedDictionaryException {
+        if (this.loaded_dicts_ids.contains(dict_id)) {
+            throw new LoadedDictionaryException();
+        }
+        this.loaded_dicts_ids.add(dict_id);
+        Set<String> loaded_words = new HashSet<String>(this.words);
+        for (String word : words) {
+            if (!loaded_words.contains(word)) {
+                this.words.add(word);
+            }
+        }
     }
 
     private void computeProb(int index, char c) {
@@ -251,15 +283,32 @@ public class Game {
         }
     }
 
+    private void saveGame() {
+        ArrayList<String> last_round = new ArrayList<String>();
+        last_round.add(this.word);
+        last_round.add(Integer.toString(this.moves));
+        last_round.add(this.won ? "Player" : "Computer");
+        this.prevRounds.add(last_round);
+    }
+
+    private void forfeit() throws GameOverException{
+        this.playing = false;
+        this.won = false;
+        this.saveGame();
+        throw new GameOverException();
+    }
+
     private void afterCheck() throws GameOverException {
         if (this.shown_indexes.size()==this.word.length()) {
             this.playing = false;
             this.won = true;
+            this.saveGame();
             throw new GameOverException();
         }
         else if (this.chances_remaining==0) {
             this.playing = false;
             this.won = false;
+            this.saveGame();
             throw new GameOverException();
         }
         else {
