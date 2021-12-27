@@ -1,5 +1,6 @@
 package components.popups;
 
+import components.sections.ChancesImage;
 import components.sections.CharactersLeft;
 import components.sections.GameHeader;
 import exceptions.LoadedDictionaryException;
@@ -51,13 +52,17 @@ public class LoadDictPopUp {
     private App.ReloadHeader reloadHeader;
     private CharactersLeft charsLeft;
     private App.ReloadCharactersLeft reloadCharactersLeft;
+    private ChancesImage chancesImage;
+    private App.ReloadChancesImage reloadChancesImage;
 
-    public LoadDictPopUp(Game game, GameHeader gameHeader, App.ReloadHeader reloadHeader, CharactersLeft charsLeft, App.ReloadCharactersLeft reloadCharactersLeft) {
+    public LoadDictPopUp(Game game, GameHeader gameHeader, App.ReloadHeader reloadHeader, CharactersLeft charsLeft, App.ReloadCharactersLeft reloadCharactersLeft, ChancesImage chancesImage, App.ReloadChancesImage reloadChancesImage) {
         this.game = game;
         this.gameHeader = gameHeader;
         this.reloadHeader = reloadHeader;
         this.charsLeft = charsLeft;
         this.reloadCharactersLeft = reloadCharactersLeft;
+        this.chancesImage = chancesImage;
+        this.reloadChancesImage = reloadChancesImage;
 
         this.popup = new Stage();
         popup.setTitle("Load dictionary");
@@ -134,5 +139,6 @@ public class LoadDictPopUp {
         this.game.newRound(false);
         this.reloadHeader.run(this.game, this.gameHeader);
         this.reloadCharactersLeft.run(this.game, this.charsLeft);
+        this.reloadChancesImage.run(this.game, this.chancesImage);
     }
 }

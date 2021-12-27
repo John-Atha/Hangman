@@ -22,20 +22,21 @@ public class TopMenu {
     private Game game;
 
     private App.ReloadHeader reloadHeader;
-
     private App.ReloadCharactersLeft reloadCharactersLeft;
+    private App.ReloadChancesImage reloadChancesImage;
 
     public MenuBar getMenuBar() {
         return this.menuBar;
     }
 
-    public TopMenu(Stage stage, Game game, GameHeader gameHeader, CharactersLeft charsLeft) {
+    public TopMenu(Stage stage, Game game, GameHeader gameHeader, CharactersLeft charsLeft, ChancesImage chancesImage) {
         this.menuBar = new MenuBar();
         this.stage = stage;
         this.game = game;
 
         this.reloadHeader = new App.ReloadHeader();
         this.reloadCharactersLeft = new App.ReloadCharactersLeft();
+        this.reloadChancesImage = new App.ReloadChancesImage();
 
         Menu application = new Menu("Application");
 
@@ -44,6 +45,7 @@ public class TopMenu {
             @Override public void handle(ActionEvent e) {
                 reloadHeader.run(game, gameHeader);
                 reloadCharactersLeft.run(game, charsLeft);
+                reloadChancesImage.run(game, chancesImage);
             }
         });
 
@@ -61,7 +63,7 @@ public class TopMenu {
         MenuItem load =  new MenuItem("load");
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadHeader, charsLeft, reloadCharactersLeft);
+                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadHeader, charsLeft, reloadCharactersLeft, chancesImage, reloadChancesImage);
                 Stage popup = loadDictPopUp.getPopup();
                 popup.initOwner(stage);
                 popup.initModality(Modality.APPLICATION_MODAL);

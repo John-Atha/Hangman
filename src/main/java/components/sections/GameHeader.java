@@ -40,7 +40,7 @@ public class GameHeader {
     public GameHeader(Game game, BorderPane parent) {
         this.vBox = new VBox();
         this.vBox.setPadding(new Insets(10));
-        vBox.setSpacing(8);
+        this.vBox.setSpacing(8);
         this.parent = parent;
         this.setGame(game, true);
     }
@@ -100,6 +100,13 @@ public class GameHeader {
         this.subBox2.setAlignment(Pos.CENTER);
         this.subBox1.setPadding(new Insets(10));
         this.subBox2.setPadding(new Insets(10));
+
+        if (this.game.getWords().size() != 0) {
+            this.setMessage("");
+        }
+        else {
+            this.setMessage("Load a dictionary to begin.");
+        }
 
         this.vBox.getChildren().clear();
         this.vBox.getChildren().add(subBox1);
