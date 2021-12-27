@@ -1,4 +1,4 @@
-package components;
+package components.popups;
 
 import exceptions.*;
 import helpers.MyStyles;

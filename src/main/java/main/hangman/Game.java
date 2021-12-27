@@ -166,10 +166,14 @@ public class Game {
         this.available_chars = available_chars;
     }
 
-    private void initRound(ArrayList<String> words) {
+    private void initRound(ArrayList<String> words, boolean pickword) {
         this.words = words;
+        // System.out.println("Clearing available chars...");
+        if (this.available_chars == null) {
+            this.available_chars = new HashSet<Character>();
+        }
 
-        if (!this.words.isEmpty()) {
+        if (!this.words.isEmpty() && pickword) {
             this.pickWord();
             this.filterWordsBySizeAndShownLetters();
         }
@@ -177,7 +181,7 @@ public class Game {
             this.words_left = new ArrayList<String>();
         }
         this.shown_indexes = new ArrayList<Integer>();
-        this.available_chars = new HashSet<Character>();
+        // this.available_chars = new HashSet<Character>();
         this.moves = 0;
         this.points = 0;
         this.chances_remaining = 6;
@@ -185,14 +189,14 @@ public class Game {
     }
 
     public Game(ArrayList<String> words) {
-        this.initRound(words);
+        this.initRound(words, false);
         this.round = 1;
         this.prevRounds = new ArrayList<ArrayList<String>>();
         this.loaded_dicts_ids = new ArrayList<String>();
     }
 
-    public void newRound() {
-        this.initRound(this.words);
+    public void newRound(boolean pickword) {
+        this.initRound(this.words, pickword);
         this.round++;
         this.playing = true;
     }
@@ -208,6 +212,9 @@ public class Game {
                 this.words.add(word);
             }
         }
+        this.pickWord();
+        this.filterWordsBySizeAndShownLetters();
+        this.updateAvailableChars();
     }
 
     private void computeProb(int index, char c) {
@@ -269,11 +276,14 @@ public class Game {
     }
 
     private void updateAvailableChars() {
+        // System.out.print("I am the game, updating my available chars:  ");
         this.available_chars = new HashSet<Character>();
         Set shown_chars = new HashSet<Character>();
-        for (Character c: this.word.toCharArray()) {
-            shown_chars.add(c);
+
+        for (int i : this.shown_indexes) {
+            shown_chars.add(this.word.charAt(i));
         }
+
         for (String word : this.words_left) {
             for (Character c : word.toCharArray()) {
                 if (!shown_chars.contains(c)) {
@@ -281,6 +291,7 @@ public class Game {
                 }
             }
         }
+        // System.out.println(this.available_chars);
     }
 
     private void saveGame() {

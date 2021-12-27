@@ -1,7 +1,5 @@
 package exceptions;
 
-import components.LoadDictPopUp;
-
 public class LoadedDictionaryException extends Exception {
     private String message = "This dictionary is already loaded.";
 

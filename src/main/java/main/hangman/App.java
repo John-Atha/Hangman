@@ -1,7 +1,8 @@
 package main.hangman;
 
-import components.GameHeader;
-import components.TopMenu;
+import components.sections.CharactersLeft;
+import components.sections.GameHeader;
+import components.sections.TopMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -17,13 +18,11 @@ public class App extends Application {
 
     public static class ReloadHeader implements Runnable {
         public void run(Game game, GameHeader gameHeader) {
-            System.out.println("Starting game with:");
-            System.out.println(game.getWords());
             gameHeader.setGame(game, false);
             if (game.getWords().size() != 0) {
-                game.newRound();
                 gameHeader.setMessage("");
-            } else {
+            }
+            else {
                 gameHeader.setMessage("Load a dictionary to begin.");
             }
         }
@@ -33,6 +32,16 @@ public class App extends Application {
             ;
         }
     }
+
+    public static class ReloadCharactersLeft implements Runnable {
+        public void run(Game game, CharactersLeft charsLeft) {
+            charsLeft.setGame(game);
+            // System.out.println("AAAA: " + charsLeft.getContainer().getChildren());
+        }
+        @Override
+        public void run() { ; }
+    }
+
 
     @Override
     public void start(Stage stage) {
@@ -51,11 +60,14 @@ public class App extends Application {
             main.setTop(null);
         }
 
+        CharactersLeft charsLeft = new CharactersLeft(game);
+        main.setRight(charsLeft.getVBox());
+
         //border.setLeft(addVBox());
         //border.setCenter(addGridPane());
         //border.setRight(addFlowPane());
 
-        TopMenu topmenu = new TopMenu(stage, game, gameHeader);
+        TopMenu topmenu = new TopMenu(stage, game, gameHeader, charsLeft);
         MenuBar menuBar = topmenu.getMenuBar();
         menuBar.setStyle(menuItemStyles);
 

@@ -1,5 +1,10 @@
-package components;
+package components.sections;
 
+import components.popups.CreateDictPopUp;
+import components.popups.LoadDictPopUp;
+import components.popups.RoundsPopUp;
+import components.popups.StatsPopUp;
+import components.sections.GameHeader;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,23 +20,30 @@ public class TopMenu {
     private MenuBar menuBar;
     private Stage stage;
     private Game game;
+
     private App.ReloadHeader reloadHeader;
+
+    private App.ReloadCharactersLeft reloadCharactersLeft;
+
     public MenuBar getMenuBar() {
         return this.menuBar;
     }
 
-
-    public TopMenu(Stage stage, Game game, GameHeader gameHeader) {
+    public TopMenu(Stage stage, Game game, GameHeader gameHeader, CharactersLeft charsLeft) {
         this.menuBar = new MenuBar();
         this.stage = stage;
         this.game = game;
+
         this.reloadHeader = new App.ReloadHeader();
+        this.reloadCharactersLeft = new App.ReloadCharactersLeft();
+
         Menu application = new Menu("Application");
 
         MenuItem start = new MenuItem("start");
         start.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 reloadHeader.run(game, gameHeader);
+                reloadCharactersLeft.run(game, charsLeft);
             }
         });
 
@@ -49,7 +61,7 @@ public class TopMenu {
         MenuItem load =  new MenuItem("load");
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadHeader);
+                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadHeader, charsLeft, reloadCharactersLeft);
                 Stage popup = loadDictPopUp.getPopup();
                 popup.initOwner(stage);
                 popup.initModality(Modality.APPLICATION_MODAL);

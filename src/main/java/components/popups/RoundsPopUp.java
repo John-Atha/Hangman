@@ -1,4 +1,4 @@
-package components;
+package components.popups;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;

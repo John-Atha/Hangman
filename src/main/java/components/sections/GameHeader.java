@@ -1,4 +1,4 @@
-package components;
+package components.sections;
 
 import helpers.HeaderState;
 import helpers.MyStyles;
@@ -48,15 +48,14 @@ public class GameHeader {
     public void setGame(Game game, boolean create) {
         this.game = game;
         if (create) {
-            System.out.println("Creating the header...");
+            System.out.print("Creating the header... ");
             this.state = new HeaderState(game);
             this.table = new TableView<>();
         }
         else {
-            System.out.println("Updating the header...");
+            System.out.print("Updating the header... ");
             this.state.setGame(game);
         }
-
 
         TableColumn<HeaderState, Integer> column1 = new TableColumn<>("Total words");
         column1.setCellValueFactory(new PropertyValueFactory<>("total_words"));
@@ -69,7 +68,6 @@ public class GameHeader {
         TableColumn<HeaderState, Integer> column5 = new TableColumn<>("Hidden word");
         column5.setCellValueFactory(new PropertyValueFactory<>("hidden_word"));
 
-        System.out.println(this.table.getColumns());
         this.table.getColumns().clear();
         this.table.getColumns().add(column1);
         this.table.getColumns().add(column2);
@@ -110,7 +108,7 @@ public class GameHeader {
         this.message.setStyle(MyStyles.error);
         this.table.setStyle(MyStyles.tableColumn);
 
-        this.table.setPrefHeight(120);
+        this.table.setPrefHeight(200);
         this.parent.setTop(this.vBox);
     }
 

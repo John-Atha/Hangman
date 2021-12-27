@@ -1,5 +1,7 @@
-package components;
+package components.popups;
 
+import components.sections.CharactersLeft;
+import components.sections.GameHeader;
 import exceptions.LoadedDictionaryException;
 import helpers.MyStyles;
 import javafx.event.ActionEvent;
@@ -47,11 +49,15 @@ public class LoadDictPopUp {
     private Game game;
     private GameHeader gameHeader;
     private App.ReloadHeader reloadHeader;
+    private CharactersLeft charsLeft;
+    private App.ReloadCharactersLeft reloadCharactersLeft;
 
-    public LoadDictPopUp(Game game, GameHeader gameHeader, App.ReloadHeader reloadHeader) {
+    public LoadDictPopUp(Game game, GameHeader gameHeader, App.ReloadHeader reloadHeader, CharactersLeft charsLeft, App.ReloadCharactersLeft reloadCharactersLeft) {
         this.game = game;
         this.gameHeader = gameHeader;
         this.reloadHeader = reloadHeader;
+        this.charsLeft = charsLeft;
+        this.reloadCharactersLeft = reloadCharactersLeft;
 
         this.popup = new Stage();
         popup.setTitle("Load dictionary");
@@ -125,6 +131,8 @@ public class LoadDictPopUp {
             this.message.setText("Dictionary " +  reader.getName() + " already loaded, please try another ID");
             this.message.setStyle("-fx-font-size: 30px; -fx-fill: red;");
         }
+        this.game.newRound(false);
         this.reloadHeader.run(this.game, this.gameHeader);
+        this.reloadCharactersLeft.run(this.game, this.charsLeft);
     }
 }

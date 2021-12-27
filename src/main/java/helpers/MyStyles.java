@@ -33,10 +33,17 @@ public class MyStyles {
 
     public static String error =
             "-fx-font-size: 30px;" +
-                    "-fx-fill: red;";
+            "-fx-fill: red;";
 
     public static String tableColumn =
             "-fx-font-size: 30px;" +
             "-fx-padding: 10;"+
             "-fx-alignment: CENTER";
+
+    public static String container =
+            "-fx-border-color: black" +
+            "-fx-background-color: red";
+
+    public static String char_ =
+            "-fx-padding: 20px;";
 }
