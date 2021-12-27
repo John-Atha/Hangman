@@ -9,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class App extends Application {
@@ -20,12 +19,12 @@ public class App extends Application {
         public void run(Game game, GameHeader gameHeader) {
             System.out.println("Starting game with:");
             System.out.println(game.getWords());
-            gameHeader.setGame(game);
+            gameHeader.setGame(game, false);
             if (game.getWords().size() != 0) {
                 game.newRound();
-                gameHeader.setMessage("", "");
+                gameHeader.setMessage("");
             } else {
-                gameHeader.setMessage("Load a dictionary to begin.", "-fx-fill: red;");
+                gameHeader.setMessage("Load a dictionary to begin.");
             }
         }
 
@@ -36,7 +35,7 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         stage.setTitle("Medialab Hangman");
 
         VBox page = new VBox();
@@ -65,8 +64,6 @@ public class App extends Application {
 
         Scene scene = new Scene(page, 2000, 1800);
         stage.setScene(scene);
-        // stage.setHeight(2000);
-        // stage.setWidth(1800);
         stage.show();
     }
 

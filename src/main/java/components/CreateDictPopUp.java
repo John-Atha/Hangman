@@ -1,6 +1,7 @@
 package components;
 
 import exceptions.*;
+import helpers.MyStyles;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

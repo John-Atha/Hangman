@@ -1,4 +1,4 @@
-package components;
+package helpers;
 
 // some styles from: http://fxexperience.com/2011/12/styling-fx-buttons-with-css/
 
@@ -35,7 +35,8 @@ public class MyStyles {
             "-fx-font-size: 30px;" +
                     "-fx-fill: red;";
 
-    public static String tableCell =
+    public static String tableColumn =
             "-fx-font-size: 30px;" +
-            "-fx-padding: 10";
+            "-fx-padding: 10;"+
+            "-fx-alignment: CENTER";
 }

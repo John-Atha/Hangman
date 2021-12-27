@@ -1,6 +1,7 @@
 package components;
 
 import exceptions.LoadedDictionaryException;
+import helpers.MyStyles;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,7 +20,6 @@ import main.hangman.Game;
 import read.DictReader;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public class LoadDictPopUp {
 

@@ -1,5 +1,7 @@
 package components;
 
+import helpers.MyStyles;
+import helpers.Row;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -81,8 +83,8 @@ public class StatsPopUp {
             this.table.getItems().add(new Row("Words with more than 7 and less than 9 letters", this.myRound(this.count2) + "%"));
             this.table.getItems().add(new Row("Words with more than 10 letters", this.myRound(this.count3) + "%"));
 
-            column1.setStyle(MyStyles.tableCell);
-            column2.setStyle(MyStyles.tableCell);
+            column1.setStyle(MyStyles.tableColumn);
+            column2.setStyle(MyStyles.tableColumn);
             column1.prefWidthProperty().bind(table.widthProperty().multiply(0.7));
             column2.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
 

@@ -1,7 +1,13 @@
 package components;
 
+import helpers.HeaderState;
+import helpers.MyStyles;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -9,32 +15,25 @@ import main.hangman.Game;
 
 public class GameHeader {
 
-    private String textStyle = "-fx-font-size: 30px;";
-
     @FXML
-    private Text total_words;
-
-    @FXML
-    private Text available_words;
-
-    @FXML
-    private Text points;
-
-    @FXML
-    private Text success_rate;
-
-    @FXML
-    private Text word;
+    private TableView table;
 
     @FXML
     private VBox vBox;
 
     @FXML
+    private VBox subBox1;
+
+    @FXML
+    private VBox subBox2;
+
+    @FXML
     private Text message;
 
-    private boolean created = false;
+    // private boolean created = false;
 
     private Game game;
+    private HeaderState state;
 
     private BorderPane parent;
 
@@ -43,64 +42,84 @@ public class GameHeader {
         this.vBox.setPadding(new Insets(10));
         vBox.setSpacing(8);
         this.parent = parent;
-        this.setGame(game);
-        this.created = true;
+        this.setGame(game, true);
     }
 
-    public void setGame(Game game) {
+    public void setGame(Game game, boolean create) {
         this.game = game;
-
-        if (this.created) {
-            System.out.println("I am the header, updating my words to:");
-            System.out.println(this.game.getWords());
-            this.word.setText("Chosen word: " + this.game.getWord());
-            this.total_words.setText("Total words: " + this.game.getWords().size());
-            this.available_words.setText("Words left:" + this.game.getWords_left().size());
-            this.points.setText("Points: " + this.game.getPoints());
-            float rate = this.game.getMoves()==0 ? 0f : (this.game.getMoves()-(6-this.game.getChances_remaining()))/((float) this.game.getMoves());
-            this.success_rate.setText("Success rate: " + rate);
-            // vBox.getChildren().clear();
+        if (create) {
+            System.out.println("Creating the header...");
+            this.state = new HeaderState(game);
+            this.table = new TableView<>();
         }
         else {
-            System.out.println("I am the header, first time here!!");
-            this.word = new Text("Chosen word: " + this.game.getWord());
-            this.message = new Text();
-            this.total_words = new Text("Total words: " + this.game.getWords().size());
-            this.available_words = new Text("Words left:" + this.game.getWords_left().size());
-            this.points = new Text("Points: " + this.game.getPoints());
-            float rate = this.game.getMoves()==0 ? 0f : (this.game.getMoves()-(6-this.game.getChances_remaining()))/((float) this.game.getMoves());
-            this.success_rate = new Text("Success rate: " + rate);
-
-            vBox.getChildren().add(this.message);
-            vBox.getChildren().add(this.total_words);
-            vBox.getChildren().add(this.available_words);
-            vBox.getChildren().add(this.points);
-            vBox.getChildren().add(this.success_rate);
-            vBox.getChildren().add(this.word);
+            System.out.println("Updating the header...");
+            this.state.setGame(game);
         }
 
-        this.message.setStyle(textStyle);
-        this.total_words.setStyle(textStyle);
-        this.available_words.setStyle(textStyle);
-        this.points.setStyle(textStyle);
-        this.success_rate.setStyle(textStyle);
-        this.word.setStyle(textStyle);
 
+        TableColumn<HeaderState, Integer> column1 = new TableColumn<>("Total words");
+        column1.setCellValueFactory(new PropertyValueFactory<>("total_words"));
+        TableColumn<HeaderState, Integer> column2 = new TableColumn<>("Words left");
+        column2.setCellValueFactory(new PropertyValueFactory<>("words_left"));
+        TableColumn<HeaderState, Integer> column3 = new TableColumn<>("Points");
+        column3.setCellValueFactory(new PropertyValueFactory<>("points"));
+        TableColumn<HeaderState, Integer> column4 = new TableColumn<>("Success Rate");
+        column4.setCellValueFactory(new PropertyValueFactory<>("rate"));
+        TableColumn<HeaderState, Integer> column5 = new TableColumn<>("Hidden word");
+        column5.setCellValueFactory(new PropertyValueFactory<>("hidden_word"));
+
+        System.out.println(this.table.getColumns());
+        this.table.getColumns().clear();
+        this.table.getColumns().add(column1);
+        this.table.getColumns().add(column2);
+        this.table.getColumns().add(column3);
+        this.table.getColumns().add(column4);
+        this.table.getColumns().add(column5);
+
+        this.table.getItems().clear();
+        this.table.getItems().add(this.state);
+
+        column1.setStyle(MyStyles.tableColumn);
+        column2.setStyle(MyStyles.tableColumn);
+        column3.setStyle(MyStyles.tableColumn);
+        column4.setStyle(MyStyles.tableColumn);
+        column5.setStyle(MyStyles.tableColumn);
+
+        column1.prefWidthProperty().bind(this.table.widthProperty().multiply(0.199));
+        column2.prefWidthProperty().bind(this.table.widthProperty().multiply(0.19));
+        column3.prefWidthProperty().bind(this.table.widthProperty().multiply(0.199));
+        column4.prefWidthProperty().bind(this.table.widthProperty().multiply(0.19));
+        column5.prefWidthProperty().bind(this.table.widthProperty().multiply(0.19));
+
+
+        this.message = new Text();
+
+        this.subBox2 = new VBox();
+        this.subBox2.getChildren().add(this.message);
+        this.subBox1 = new VBox(this.table);
+
+        this.subBox2.setAlignment(Pos.CENTER);
+        this.subBox1.setPadding(new Insets(10));
+        this.subBox2.setPadding(new Insets(10));
+
+        this.vBox.getChildren().clear();
+        this.vBox.getChildren().add(subBox1);
+        this.vBox.getChildren().add(subBox2);
+
+        this.message.setStyle(MyStyles.error);
+        this.table.setStyle(MyStyles.tableColumn);
+
+        this.table.setPrefHeight(120);
         this.parent.setTop(this.vBox);
     }
 
-    public void setMessage(String message, String style) {
+    public void setMessage(String message) {
         if (message.length()!=0) {
-            this.total_words.setText("");
-            this.available_words.setText("");
-            this.points.setText("");
-            this.success_rate.setText("");
+            this.table.getItems().clear();
         }
         this.message.setText(message);
-        this.message.setStyle(
-                textStyle +
-                style
-        );
+        this.message.setStyle(MyStyles.error);
     }
 
     public VBox getVBox() {
