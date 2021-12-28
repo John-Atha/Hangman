@@ -3,6 +3,8 @@ package components.popups;
 import helpers.MyStyles;
 import helpers.Row;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -97,9 +99,7 @@ public class StatsPopUp {
             this.vBox.getChildren().add(this.allWords);
         }
 
-        this.vBox.setStyle(
-                "-fx-padding: 10px"
-        );
+        this.vBox.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(vBox, 1800, 1000);
         popup.setScene(scene);

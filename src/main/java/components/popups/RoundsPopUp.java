@@ -1,6 +1,7 @@
 package components.popups;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -67,9 +68,7 @@ public class RoundsPopUp {
             }
         }
 
-        this.container.setStyle(
-                "-fx-padding: 10px"
-        );
+        this.container.setAlignment(Pos.CENTER);
         Scene scene = new Scene(container, 1800, 1000);
         popup.setScene(scene);
     }

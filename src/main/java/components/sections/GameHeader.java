@@ -57,7 +57,7 @@ public class GameHeader extends UpdatableSection {
             this.table = new TableView<>();
         }
         else {
-            System.out.print("Updating the header... ");
+            // System.out.print("Updating the header... ");
             this.state.setGame(game);
         }
 
@@ -105,12 +105,12 @@ public class GameHeader extends UpdatableSection {
         this.subBox1.setPadding(new Insets(10));
         this.subBox2.setPadding(new Insets(10));
 
-        if (this.game.getWords().size() != 0) {
+        // if (this.game.getWords().size() != 0) {
             this.setMessage("");
-        }
-        else {
-            this.setMessage("Load a dictionary to begin.");
-        }
+        // }
+        // else {
+        //     this.setMessage("Load a dictionary to begin.");
+        // }
 
         this.vBox.getChildren().clear();
         this.vBox.getChildren().add(subBox1);

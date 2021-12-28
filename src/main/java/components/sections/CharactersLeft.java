@@ -45,7 +45,7 @@ public class CharactersLeft extends UpdatableSection {
         this.title = new Label("Available characters");
         this.title.setStyle(MyStyles.title);
 
-        System.out.println("My game has been updated to chars:" + this.game.getAvailable_chars());
+        // System.out.println("My game has been updated to chars:" + this.game.getAvailable_chars());
         Set<Character> chars = new HashSet<>(game.getAvailable_chars());
         for (Character c : chars) {
             Label char_display = new Label(c.toString());

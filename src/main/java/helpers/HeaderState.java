@@ -26,7 +26,7 @@ public class HeaderState {
         this.points = this.game.getPoints();
         float rate = this.game.getMoves()==0 ? 0f : (this.game.getMoves()-(6-this.game.getChances_remaining()))/((float) this.game.getMoves());
         this.rate = rate;
-        System.out.println("I am the header state, updated to: " + this.total_words);
+        // System.out.println("I am the header state, updated to: " + this.total_words);
     }
 
     public int getTotal_words() {

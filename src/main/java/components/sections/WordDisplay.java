@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import main.hangman.Game;
 
 import java.util.HashSet;
@@ -20,6 +21,9 @@ public class WordDisplay extends UpdatableSection {
     private Label title;
     @FXML
     private FlowPane flow;
+
+    @FXML
+    private Text intro_message;
 
     public WordDisplay(Game game) {
         this.vBox = new VBox();
@@ -63,6 +67,17 @@ public class WordDisplay extends UpdatableSection {
             this.vBox.setAlignment(Pos.TOP_CENTER);
             this.vBox.getChildren().add(this.title);
             this.vBox.getChildren().add(this.flow);
+        }
+        else {
+            this.vBox.getChildren().clear();
+            this.title = new Label("Welcome to the hangman game!!");
+            this.title.setStyle(MyStyles.title);
+            this.intro_message = new Text("Load a dictionary to begin!");
+            this.intro_message.setStyle(MyStyles.success);
+            this.vBox.setAlignment(Pos.CENTER);
+            this.vBox.setSpacing(100);
+            this.vBox.getChildren().add(this.title);
+            this.vBox.getChildren().add(this.intro_message);
         }
     }
 

@@ -23,12 +23,12 @@ public class App extends Application {
         Game game = new Game(new ArrayList<String>());
 
         GameHeader gameHeader = new GameHeader(game, main);
-        if (game.isPlaying()) {
+        // if (game.isPlaying()) {
             main.setTop(gameHeader.getVBox());
-        }
-        else {
-            main.setTop(null);
-        }
+        // }
+        // else {
+        //     main.setTop(null);
+        // }
 
         CharactersLeft charsLeft = new CharactersLeft(game);
         main.setRight(charsLeft.getVBox());
