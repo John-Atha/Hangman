@@ -35,7 +35,7 @@ public class WordDisplay extends UpdatableSection {
     }
     public void setGame(Game game) {
         this.game = game;
-        if (this.game.getWord() != null) {
+        if (this.game.isPlaying()) {
             this.vBox.getChildren().clear();
             this.title = new Label("Find the hidden word!");
             this.title.setStyle(MyStyles.title);
@@ -72,7 +72,15 @@ public class WordDisplay extends UpdatableSection {
             this.vBox.getChildren().clear();
             this.title = new Label("Welcome to the hangman game!!");
             this.title.setStyle(MyStyles.title);
-            this.intro_message = new Text("Load a dictionary to begin!");
+            if (this.game.getWords()==null || this.game.getWords().size()==0) {
+                this.intro_message = new Text("Load a dictionary to begin!");
+            }
+            else if (this.game.getPrevRounds()==null || this.game.getPrevRounds().size()==0){
+                this.intro_message = new Text("Dictionary loaded, go to Application->Start to play !!");
+            }
+            else {
+                this.intro_message = new Text();
+            }
             this.intro_message.setStyle(MyStyles.success);
             this.vBox.setAlignment(Pos.CENTER);
             this.vBox.setSpacing(100);

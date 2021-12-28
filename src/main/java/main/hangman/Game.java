@@ -192,25 +192,27 @@ public class Game {
 
     private void initRound(ArrayList<String> words) throws NoDictsException {
         this.words = words;
+        this.shown_indexes = new ArrayList<Integer>();
+        this.moves = 0;
+        this.points = 0;
+        this.chances_remaining = 6;
+        this.won = false;
+
         if (this.available_chars == null) {
             System.out.println("Clearing available chars...");
             this.available_chars = new HashSet<Character>();
         }
-
         if (!(this.words==null || this.words.isEmpty())) {
             this.pickWord();
             this.filterWordsBySizeAndShownLetters();
+            this.words_left = new ArrayList<>(this.words);
+            this.updateAvailableChars();
         }
         else {
             this.words_left = new ArrayList<String>();
             throw new NoDictsException();
         }
-        this.shown_indexes = new ArrayList<Integer>();
-        // this.available_chars = new HashSet<Character>();
-        this.moves = 0;
-        this.points = 0;
-        this.chances_remaining = 6;
-        this.won = false;
+
     }
 
     public void addDict(String dict_id, ArrayList<String> words) throws LoadedDictionaryException {
@@ -225,8 +227,6 @@ public class Game {
             }
         }
         this.words_left = new ArrayList<>(this.words);
-        // this.pickWord();
-        // this.filterWordsBySizeAndShownLetters();
         this.updateAvailableChars();
     }
 
@@ -317,7 +317,7 @@ public class Game {
         this.prevRounds.add(last_round);
     }
 
-    private void forfeit() throws GameOverException{
+    private void giveUp() throws GameOverException{
         this.playing = false;
         this.won = false;
         this.saveGame();

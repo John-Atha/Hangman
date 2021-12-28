@@ -28,6 +28,9 @@ public class LoadDictPopUp {
     private Label title;
 
     @FXML
+    private Label note;
+
+    @FXML
     private HBox hBox1;
     @FXML
     private Label label1;
@@ -47,15 +50,10 @@ public class LoadDictPopUp {
 
     private Game game;
     private GameHeader gameHeader;
-    // private App.ReloadHeader reloadHeader;
     private CharactersLeft charsLeft;
-    // private App.ReloadCharactersLeft reloadCharactersLeft;
     private ChancesImage chancesImage;
-    // private App.ReloadChancesImage reloadChancesImage;
     private WordDisplay wordDisplay;
-    // private App.ReloadWordDisplay reloadWordDisplay;
     private CharacterForm characterForm;
-    // private App.ReloadCharacterForm reloadCharacterForm;
 
     public LoadDictPopUp(
             Game game,
@@ -85,6 +83,10 @@ public class LoadDictPopUp {
 
         this.title = new Label("Load");
 
+        this.note = new Label("If you are currently playing a game, loading a new dictionary will terminate this round and will count as a loss.");
+        this.note.setStyle(MyStyles.label);
+        this.note.setPadding(new Insets(30));
+
         this.label1 = new Label("Insert the id of the dictionary you would like to load.");
         this.dictField = new TextField();
         this.hBox1.getChildren().add(this.label1);
@@ -94,6 +96,7 @@ public class LoadDictPopUp {
         this.message = new Text();
 
         this.vBox.getChildren().add(this.title);
+        this.vBox.getChildren().add(this.note);
         this.vBox.getChildren().add(this.hBox1);
 
         this.vBox.getChildren().add(this.submit_button);
@@ -135,8 +138,6 @@ public class LoadDictPopUp {
 
         try {
             reader.read();
-            // ArrayList<String> temp_words = new ArrayList<String>();
-            // temp_words = this.game.getWords();
             this.game.addDict(ID_dict, reader.getWords());
             this.message.setText("Read dictionary with id " + ID_dict + " successfully.");
             this.message.setStyle(MyStyles.success);
@@ -149,13 +150,7 @@ public class LoadDictPopUp {
             this.message.setText("Dictionary " +  reader.getName() + " already loaded, please try another ID");
             this.message.setStyle(MyStyles.error);
         }
-        // this.game.newRound();
-
-        // this.reloadHeader.run(this.game, this.gameHeader);
-        // this.reloadCharactersLeft.run(this.game, this.charsLeft);
-        // this.reloadChancesImage.run(this.game, this.chancesImage);
-        // this.reloadWordDisplay.run(this.game, this.wordDisplay);
-        // this.reloadCharacterForm.run(this.game, this.characterForm);
+        // this.game.setPlaying(true);
         this.gameHeader.update(game);
         this.charsLeft.update(game);
         this.chancesImage.update(game);

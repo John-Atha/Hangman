@@ -54,7 +54,7 @@ public class ChancesImage extends UpdatableSection {
 
         this.vBox.getChildren().clear();
 
-        if (this.game.getWord()!=null) {
+        if (this.game.isPlaying()) {
             this.vBox.getChildren().add(this.text);
             this.vBox.getChildren().add(this.imageView);
         }

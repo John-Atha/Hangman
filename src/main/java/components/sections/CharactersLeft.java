@@ -54,7 +54,7 @@ public class CharactersLeft extends UpdatableSection {
             char_display.setPadding(new Insets(30));
             this.container.getChildren().add(char_display);
         }
-        if (this.game.getWord()!=null) {
+        if (this.game.isPlaying()) {
             this.vBox.getChildren().add(this.title);
             this.vBox.getChildren().add(this.container);
             if (chars.size() == 0) {

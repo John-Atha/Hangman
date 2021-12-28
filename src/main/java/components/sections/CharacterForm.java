@@ -6,6 +6,7 @@ import helpers.MyStyles;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -45,8 +46,13 @@ public class CharacterForm extends UpdatableSection{
 
     @FXML
     private Button submit_button;
+
+    @FXML
+    private VBox messagesContainer;
     @FXML
     private Text message;
+    @FXML
+    private Text submessage;
 
     private GameHeader gameheader;
     private CharactersLeft charactersLeft;
@@ -68,7 +74,7 @@ public class CharacterForm extends UpdatableSection{
 
     public void setGame(Game game) {
         this.game = game;
-        if (this.game.getWord() != null) {
+        if (this.game.isPlaying()) {
             this.vBox.getChildren().clear();
 
             this.title = new Label("Guess a letter!");
@@ -110,26 +116,37 @@ public class CharacterForm extends UpdatableSection{
                 }
             });
 
+            this.messagesContainer = new VBox();
             this.message = new Text();
+            this.submessage = new Text();
             this.vBox.setAlignment(Pos.TOP_CENTER);
-            this.vBox.getChildren().add(this.title);
-            this.vBox.getChildren().add(this.grid);
-            // this.vBox.getChildren().add(this.index_hBox);
-            // this.vBox.getChildren().add(this.char_hBox);
-            this.vBox.getChildren().add(this.submit_button);
-            this.vBox.getChildren().add(this.message);
+            if (this.game.isPlaying()) {
+                this.vBox.getChildren().add(this.title);
+                this.vBox.getChildren().add(this.grid);
+                this.vBox.getChildren().add(this.submit_button);
+            }
+            this.messagesContainer.getChildren().add(this.message);
+            this.messagesContainer.getChildren().add(this.submessage);
+            this.messagesContainer.setAlignment(Pos.CENTER);
+            this.messagesContainer.setPadding(new Insets(20));
+            this.messagesContainer.setSpacing(10);
+            this.vBox.getChildren().add(this.messagesContainer);
         }
 
     }
 
-    private void generate_error(String message) {
+    private void generate_error(String message, String submessage) {
         this.message.setText(message);
+        this.submessage.setText(submessage);
         this.message.setStyle(MyStyles.error);
+        this.submessage.setStyle(MyStyles.error);
     }
 
-    private void generate_success(String message) {
+    private void generate_success(String message, String submessage) {
         this.message.setText(message);
+        this.submessage.setText(submessage);
         this.message.setStyle(MyStyles.success);
+        this.submessage.setStyle(MyStyles.success);
     }
 
     private void submit() {
@@ -139,17 +156,17 @@ public class CharacterForm extends UpdatableSection{
             index = Integer.parseInt(this.index_field.getText())-1;
         }
         catch (NumberFormatException e) {
-            this.generate_error("Invalid index given");
+            this.generate_error("Position should be a number!", "");
             return;
         }
         if (index<0 || index>=this.game.getWord().length()) {
-            this.generate_error("This index is out of word's range!");
+            this.generate_error("This position is out of word's range!", "");
             return;
         }
         char c;
         String c_ = this.char_field.getText();
         if (c_ == null || c_.length()!=1) {
-            this.generate_error("Type exactly one char!");
+            this.generate_error("Type exactly one char!", "");
             return;
         }
         c = c_.toUpperCase(Locale.ROOT).charAt(0);
@@ -163,21 +180,25 @@ public class CharacterForm extends UpdatableSection{
             this.wordDisplay.update(this.game);
 
             if (this.game.getWord().charAt(index) == c) {
-                this.generate_success("Correct guess !!");
+                this.generate_success("Correct guess !!", "");
             }
             else {
-                this.generate_error("Sorry, wrong guess...");
+                this.generate_error("Sorry, wrong guess...", "");
             }
         }
         catch (ShownCharException e) {
-            this.generate_error("The letter of this position is already found!");
+            this.generate_error("The letter of this position is already found!", "");
         }
         catch (GameOverException e) {
+            this.vBox.getChildren().remove(this.title);
+            this.vBox.getChildren().remove(this.grid);
+            this.vBox.getChildren().remove(this.submit_button);
+
             if (this.game.isWon()) {
-                generate_success("Congratulations, YOU WON THE GAME !!");
+                generate_success("Congratulations, YOU WON THE GAME !!", "Go to Application->Start to play again!!");
             }
             else {
-                generate_error("Oops, you lost the game...");
+                generate_error("Oops, you lost the game...", "Go to Application->Start to try again!");
             }
             this.gameheader.update(this.game);
             this.charactersLeft.update(this.game);
