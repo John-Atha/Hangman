@@ -2,7 +2,6 @@ package components.popups;
 
 import components.sections.*;
 import exceptions.GameOverException;
-import exceptions.NoDictsException;
 import helpers.MyStyles;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.hangman.Game;
 
@@ -52,6 +50,22 @@ public class SolutionPopUp {
         this.game = game;
         this.vBox.getChildren().clear();
 
+        if (this.game.getPrevWord()!=null) {
+            this.message = new Text("You lost.");
+            Text submessage = new Text("solution: " + this.game.getPrevWord());
+            this.message.setStyle(MyStyles.error);
+            submessage.setStyle(MyStyles.error);
+            this.vBox.getChildren().add(this.message);
+            this.vBox.getChildren().add(submessage);
+            this.vBox.setAlignment(Pos.CENTER);
+            this.vBox.setSpacing(10);
+            this.popup = new Stage();
+            this.popup.setTitle("Solution");
+            Scene scene = new Scene(vBox, 1800, 1000);
+            popup.setScene(scene);
+            return;
+        }
+
         if (this.game.isPlaying()) {
             this.title = new Label("Are you sure you want to see the solution?");
             this.title.setStyle(MyStyles.title);
@@ -83,7 +97,6 @@ public class SolutionPopUp {
         }
 
         this.vBox.setAlignment(Pos.CENTER);
-
         this.popup = new Stage();
         this.popup.setTitle("Solution");
         Scene scene = new Scene(vBox, 1800, 1000);

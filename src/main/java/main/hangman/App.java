@@ -34,7 +34,7 @@ public class App extends Application {
         WordDisplay wordDisplay = new WordDisplay(game);
         main.setCenter(wordDisplay.getVBox());
 
-        CharacterForm characterForm = new CharacterForm(game, gameHeader, charsLeft, chancesImage, wordDisplay);
+        CharacterForm characterForm = new CharacterForm(stage, game, gameHeader, charsLeft, chancesImage, wordDisplay);
         main.setBottom(characterForm.getVBox());
 
         TopMenu topmenu = new TopMenu(stage, game, gameHeader, charsLeft, chancesImage, wordDisplay, characterForm);

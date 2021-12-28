@@ -28,6 +28,14 @@ public class Game {
     private boolean playing;
     private boolean won;
     private ArrayList<ArrayList<String>> prevRounds;
+    private String prevWord;
+
+    public String getPrevWord() {
+        return prevWord;
+    }
+    public void setPrevWord(String prevWord) {
+        this.prevWord = prevWord;
+    }
 
     public ArrayList<String> getWords() {
         return words;
@@ -169,6 +177,10 @@ public class Game {
         this.available_chars = available_chars;
     }
 
+    // dummy copy constructor to use on `CharacterForm.java`
+    public Game(Game another) {
+        this.word = another.word;
+    }
 
     public Game(ArrayList<String> words) {
         this.round = 0;
@@ -185,6 +197,7 @@ public class Game {
     }
 
     public void newRound() throws NoDictsException {
+        this.prevWord = null;
         this.initRound(this.words); // exception thrown here if words are null || []
         this.round++;
         this.playing = true;

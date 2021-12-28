@@ -1,5 +1,6 @@
 package components.sections;
 
+import components.popups.SolutionPopUp;
 import exceptions.GameOverException;
 import exceptions.ShownCharException;
 import helpers.MyStyles;
@@ -16,6 +17,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import main.hangman.Game;
 
 import java.util.ArrayList;
@@ -25,6 +29,8 @@ import java.util.Locale;
 public class CharacterForm extends UpdatableSection{
     private Game game;
 
+    @FXML
+    private Stage parent;
     @FXML
     private VBox vBox;
 
@@ -59,12 +65,13 @@ public class CharacterForm extends UpdatableSection{
     private ChancesImage chancesImage;
     private WordDisplay wordDisplay;
 
-    public CharacterForm(Game game, GameHeader gameHeader, CharactersLeft charsLeft, ChancesImage chancesImage, WordDisplay wordDisplay) {
+    public CharacterForm(Stage parent, Game game, GameHeader gameHeader, CharactersLeft charsLeft, ChancesImage chancesImage, WordDisplay wordDisplay) {
         this.vBox = new VBox();
         this.gameheader = gameHeader;
         this.charactersLeft = charsLeft;
         this.chancesImage = chancesImage;
         this.wordDisplay = wordDisplay;
+        this.parent = parent;
         this.setGame(game);
     }
 
@@ -82,25 +89,14 @@ public class CharacterForm extends UpdatableSection{
 
             this.grid = new GridPane();
             this.grid.setAlignment(Pos.CENTER);
-            // this.index_hBox = new HBox();
-            // this.index_hBox.setSpacing(10);
-            // this.index_hBox.setAlignment(Pos.CENTER);
             this.index_label = new Label("Letter position:");
             this.index_label.setStyle(MyStyles.label);
             this.index_field = new TextField();
             this.index_field.setStyle(MyStyles.textField);
-            // this.index_hBox.getChildren().add(this.index_label);
-            // this.index_hBox.getChildren().add(this.index_field);
-
-            // this.char_hBox = new HBox();
-            // this.char_hBox.setSpacing(10);
-            // this.char_hBox.setAlignment(Pos.CENTER);
             this.char_label = new Label("Letter:");
             this.char_label.setStyle(MyStyles.label);
             this.char_field = new TextField();
             this.char_field.setStyle(MyStyles.textField);
-            // this.char_hBox.getChildren().add(this.char_label);
-            // this.char_hBox.getChildren().add(this.char_field);
 
             this.grid.add(index_label, 0, 0, 1, 1);
             this.grid.add(index_field, 1, 0, 1, 1);
@@ -171,7 +167,28 @@ public class CharacterForm extends UpdatableSection{
         }
         c = c_.toUpperCase(Locale.ROOT).charAt(0);
 
+        if (
+            !this.game.getShown_indexes().contains(index) &&
+            this.game.getWord().charAt(index)!=c &&
+            this.game.getChances_remaining()==1
+        ) {
+            this.game.setPrevWord(this.game.getWord());
+            SolutionPopUp solutionPopUp = new SolutionPopUp(
+                    game,
+                    null
+            );
+            Stage popup = solutionPopUp.getPopUp();
+            popup.initOwner(parent);
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.showAndWait();
+
+        }
         // make the move
+        make_the_move(index, c);
+    }
+
+    private void make_the_move(int index, char c) {
+        System.out.println("\nI am making the move");
         try {
             this.game.move(index, c);
             this.gameheader.update(this.game);

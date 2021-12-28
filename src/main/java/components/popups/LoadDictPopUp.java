@@ -136,6 +136,23 @@ public class LoadDictPopUp {
             this.game.addDict(ID_dict, reader.getWords());
             this.message.setText("Read dictionary with id " + ID_dict + " successfully" +  (this.game.isPlaying() ? ", running round was abandoned" : "") + ".");
             this.message.setStyle(MyStyles.success);
+            if (this.game.isPlaying()) {
+                try {
+                    System.out.println("RESETTING THE GAME !!");
+                    this.game.giveUp();
+                }
+                catch (GameOverException e) {
+                    this.characterForm.onGameOver();
+                }
+            }
+
+            else {
+                this.gameHeader.update(game);
+                this.charsLeft.update(game);
+                this.chancesImage.update(game);
+                this.wordDisplay.update(game);
+                this.characterForm.update(game);
+            }
         }
         catch (FileNotFoundException e) {
             this.message.setText("Dictionary " +  reader.getName() + " not found, please try another ID");
@@ -145,22 +162,6 @@ public class LoadDictPopUp {
             this.message.setText("Dictionary " +  reader.getName() + " already loaded, please try another ID");
             this.message.setStyle(MyStyles.error);
         }
-        if (this.game.isPlaying()) {
-            try {
-                System.out.println("RESETTING THE GAME !!");
-                this.game.giveUp();
-            }
-            catch (GameOverException e) {
-                this.characterForm.onGameOver();
-            }
-        }
 
-        else {
-            this.gameHeader.update(game);
-            this.charsLeft.update(game);
-            this.chancesImage.update(game);
-            this.wordDisplay.update(game);
-            this.characterForm.update(game);
-        }
     }
 }
