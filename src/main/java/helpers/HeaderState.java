@@ -20,9 +20,9 @@ public class HeaderState {
 
     public void setGame(Game game) {
         this.game = game;
-        this.hidden_word =this.game.getWord();
-        this.total_words = this.game.getWords().size();
-        this.words_left = this.game.getWords_left().size();
+        this.hidden_word = this.game.getWord();
+        this.total_words = this.game.getWords()!=null ? this.game.getWords().size() : 0;
+        this.words_left = this.game.getWords_left()!=null ? this.game.getWords_left().size() : 0;
         this.points = this.game.getPoints();
         float rate = this.game.getMoves()==0 ? 0f : (this.game.getMoves()-(6-this.game.getChances_remaining()))/((float) this.game.getMoves());
         this.rate = rate;

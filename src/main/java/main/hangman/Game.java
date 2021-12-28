@@ -2,6 +2,7 @@ package main.hangman;
 
 import exceptions.GameOverException;
 import exceptions.LoadedDictionaryException;
+import exceptions.NoDictsException;
 import exceptions.ShownCharException;
 
 import java.util.ArrayList;
@@ -168,19 +169,41 @@ public class Game {
         this.available_chars = available_chars;
     }
 
-    private void initRound(ArrayList<String> words, boolean pickword) {
+
+    public Game(ArrayList<String> words) {
+        this.round = 0;
+        this.prevRounds = new ArrayList<ArrayList<String>>();
+        this.loaded_dicts_ids = new ArrayList<String>();
+        this.words = words!=null ? words : new ArrayList<String>();
+        this.available_chars = new HashSet<Character>();
+        this.shown_indexes = new ArrayList<Integer>();
+        this.words_left = new ArrayList<String>(words);
+        this.moves = 0;
+        this.points = 0;
+        this.chances_remaining = 6;
+        this.won = false;
+    }
+
+    public void newRound() throws NoDictsException {
+        this.initRound(this.words); // exception thrown here if words are null || []
+        this.round++;
+        this.playing = true;
+    }
+
+    private void initRound(ArrayList<String> words) throws NoDictsException {
         this.words = words;
-        // System.out.println("Clearing available chars...");
         if (this.available_chars == null) {
+            System.out.println("Clearing available chars...");
             this.available_chars = new HashSet<Character>();
         }
 
-        if (!this.words.isEmpty() && pickword) {
+        if (!(this.words==null || this.words.isEmpty())) {
             this.pickWord();
             this.filterWordsBySizeAndShownLetters();
         }
         else {
             this.words_left = new ArrayList<String>();
+            throw new NoDictsException();
         }
         this.shown_indexes = new ArrayList<Integer>();
         // this.available_chars = new HashSet<Character>();
@@ -190,32 +213,20 @@ public class Game {
         this.won = false;
     }
 
-    public Game(ArrayList<String> words) {
-        this.initRound(words, false);
-        this.round = 1;
-        this.prevRounds = new ArrayList<ArrayList<String>>();
-        this.loaded_dicts_ids = new ArrayList<String>();
-    }
-
-    public void newRound(boolean pickword) {
-        this.initRound(this.words, pickword);
-        this.round++;
-        this.playing = true;
-    }
-
     public void addDict(String dict_id, ArrayList<String> words) throws LoadedDictionaryException {
         if (this.loaded_dicts_ids.contains(dict_id)) {
             throw new LoadedDictionaryException();
         }
         this.loaded_dicts_ids.add(dict_id);
-        Set<String> loaded_words = new HashSet<String>(this.words);
+        Set<String> loaded_words = new HashSet<String>(this.words!=null ? this.words : new ArrayList<>());
         for (String word : words) {
             if (!loaded_words.contains(word)) {
                 this.words.add(word);
             }
         }
-        this.pickWord();
-        this.filterWordsBySizeAndShownLetters();
+        this.words_left = new ArrayList<>(this.words);
+        // this.pickWord();
+        // this.filterWordsBySizeAndShownLetters();
         this.updateAvailableChars();
     }
 
@@ -258,6 +269,7 @@ public class Game {
         else {
             this.points = 0;
         }
+        this.filterWordsByNewLetter(index, c, false);
     }
 
     private void validate(int index, char c) throws ShownCharException {
@@ -278,7 +290,7 @@ public class Game {
     }
 
     private void updateAvailableChars() {
-        // System.out.print("I am the game, updating my available chars:  ");
+        System.out.print("I am the game, updating my available chars based on words left: " + this.words_left);
         this.available_chars = new HashSet<Character>();
         Set shown_chars = new HashSet<Character>();
 
@@ -297,6 +309,7 @@ public class Game {
     }
 
     private void saveGame() {
+        /* add this round to the saved */
         ArrayList<String> last_round = new ArrayList<String>();
         last_round.add(this.word);
         last_round.add(Integer.toString(this.moves));
@@ -312,6 +325,7 @@ public class Game {
     }
 
     private void afterCheck() throws GameOverException {
+        // game is over...
         if (this.shown_indexes.size()==this.word.length()) {
             this.playing = false;
             this.won = true;
@@ -324,6 +338,7 @@ public class Game {
             this.saveGame();
             throw new GameOverException();
         }
+        // else...
         else {
             this.updateAvailableChars();
         }
@@ -334,9 +349,5 @@ public class Game {
         perform(index, c);
         afterCheck();
     }
-
-
-
-
 
 }

@@ -149,7 +149,8 @@ public class LoadDictPopUp {
             this.message.setText("Dictionary " +  reader.getName() + " already loaded, please try another ID");
             this.message.setStyle(MyStyles.error);
         }
-        this.game.newRound(false);
+        // this.game.newRound();
+
         // this.reloadHeader.run(this.game, this.gameHeader);
         // this.reloadCharactersLeft.run(this.game, this.charsLeft);
         // this.reloadChancesImage.run(this.game, this.chancesImage);

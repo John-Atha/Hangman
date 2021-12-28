@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.hangman.Game;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class CharactersLeft extends UpdatableSection {
         this.title.setStyle(MyStyles.title);
 
         // System.out.println("My game has been updated to chars:" + this.game.getAvailable_chars());
-        Set<Character> chars = new HashSet<>(game.getAvailable_chars());
+        Set<Character> chars = new HashSet<>(game.getAvailable_chars()!=null ? game.getAvailable_chars() : new ArrayList<>());
         for (Character c : chars) {
             Label char_display = new Label(c.toString());
             char_display.setStyle(MyStyles.label);

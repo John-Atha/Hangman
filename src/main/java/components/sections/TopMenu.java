@@ -1,10 +1,8 @@
 package components.sections;
 
-import components.popups.CreateDictPopUp;
-import components.popups.LoadDictPopUp;
-import components.popups.RoundsPopUp;
-import components.popups.StatsPopUp;
+import components.popups.*;
 import components.sections.GameHeader;
+import exceptions.NoDictsException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -70,11 +68,22 @@ public class TopMenu {
                 // reloadChancesImage.run(game, chancesImage);
                 // reloadWordDisplay.run(game, wordDisplay);
                 // reloadCharacterForm.run(game, characterForm);
-                gameHeader.update(game);
-                charsLeft.update(game);
-                chancesImage.update(game);
-                wordDisplay.update(game);
-                characterForm.update(game);
+                try {
+                    game.newRound(); // the exception will be thrown here if no words are available...
+                    gameHeader.update(game);
+                    charsLeft.update(game);
+                    chancesImage.update(game);
+                    wordDisplay.update(game);
+                    characterForm.update(game);
+                }
+                catch (NoDictsException ex) {
+                    ErrorPopUp errorPopUp = new ErrorPopUp(ex.getMessage());
+                    Stage popup = errorPopUp.getPopUp();
+                    popup.initOwner(stage);
+                    popup.initModality(Modality.APPLICATION_MODAL);
+                    popup.showAndWait();
+                }
+
             }
         });
 
