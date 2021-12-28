@@ -3,6 +3,7 @@ package components.popups;
 import components.sections.ChancesImage;
 import components.sections.CharactersLeft;
 import components.sections.GameHeader;
+import components.sections.WordDisplay;
 import exceptions.LoadedDictionaryException;
 import helpers.MyStyles;
 import javafx.event.ActionEvent;
@@ -54,8 +55,16 @@ public class LoadDictPopUp {
     private App.ReloadCharactersLeft reloadCharactersLeft;
     private ChancesImage chancesImage;
     private App.ReloadChancesImage reloadChancesImage;
+    private WordDisplay wordDisplay;
+    private App.ReloadWordDisplay reloadWordDisplay;
 
-    public LoadDictPopUp(Game game, GameHeader gameHeader, App.ReloadHeader reloadHeader, CharactersLeft charsLeft, App.ReloadCharactersLeft reloadCharactersLeft, ChancesImage chancesImage, App.ReloadChancesImage reloadChancesImage) {
+    public LoadDictPopUp(
+            Game game,
+            GameHeader gameHeader,     App.ReloadHeader reloadHeader,
+            CharactersLeft charsLeft,  App.ReloadCharactersLeft reloadCharactersLeft,
+            ChancesImage chancesImage, App.ReloadChancesImage reloadChancesImage,
+            WordDisplay wordDisplay,   App.ReloadWordDisplay reloadWordDisplay
+            ) {
         this.game = game;
         this.gameHeader = gameHeader;
         this.reloadHeader = reloadHeader;
@@ -63,6 +72,8 @@ public class LoadDictPopUp {
         this.reloadCharactersLeft = reloadCharactersLeft;
         this.chancesImage = chancesImage;
         this.reloadChancesImage = reloadChancesImage;
+        this.wordDisplay = wordDisplay;
+        this.reloadWordDisplay = reloadWordDisplay;
 
         this.popup = new Stage();
         popup.setTitle("Load dictionary");
@@ -140,5 +151,6 @@ public class LoadDictPopUp {
         this.reloadHeader.run(this.game, this.gameHeader);
         this.reloadCharactersLeft.run(this.game, this.charsLeft);
         this.reloadChancesImage.run(this.game, this.chancesImage);
+        this.reloadWordDisplay.run(this.game, this.wordDisplay);
     }
 }

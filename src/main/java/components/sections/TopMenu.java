@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.hangman.App;
 import main.hangman.Game;
+import read.WordsPicker;
 
 public class TopMenu {
     private MenuBar menuBar;
@@ -24,12 +25,13 @@ public class TopMenu {
     private App.ReloadHeader reloadHeader;
     private App.ReloadCharactersLeft reloadCharactersLeft;
     private App.ReloadChancesImage reloadChancesImage;
+    private App.ReloadWordDisplay reloadWordDisplay;
 
     public MenuBar getMenuBar() {
         return this.menuBar;
     }
 
-    public TopMenu(Stage stage, Game game, GameHeader gameHeader, CharactersLeft charsLeft, ChancesImage chancesImage) {
+    public TopMenu(Stage stage, Game game, GameHeader gameHeader, CharactersLeft charsLeft, ChancesImage chancesImage, WordDisplay wordDisplay) {
         this.menuBar = new MenuBar();
         this.stage = stage;
         this.game = game;
@@ -37,6 +39,7 @@ public class TopMenu {
         this.reloadHeader = new App.ReloadHeader();
         this.reloadCharactersLeft = new App.ReloadCharactersLeft();
         this.reloadChancesImage = new App.ReloadChancesImage();
+        this.reloadWordDisplay = new App.ReloadWordDisplay();
 
         Menu application = new Menu("Application");
 
@@ -46,6 +49,7 @@ public class TopMenu {
                 reloadHeader.run(game, gameHeader);
                 reloadCharactersLeft.run(game, charsLeft);
                 reloadChancesImage.run(game, chancesImage);
+                reloadWordDisplay.run(game, wordDisplay);
             }
         });
 
@@ -63,7 +67,7 @@ public class TopMenu {
         MenuItem load =  new MenuItem("load");
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadHeader, charsLeft, reloadCharactersLeft, chancesImage, reloadChancesImage);
+                LoadDictPopUp loadDictPopUp = new LoadDictPopUp(game, gameHeader, reloadHeader, charsLeft, reloadCharactersLeft, chancesImage, reloadChancesImage, wordDisplay, reloadWordDisplay);
                 Stage popup = loadDictPopUp.getPopup();
                 popup.initOwner(stage);
                 popup.initModality(Modality.APPLICATION_MODAL);

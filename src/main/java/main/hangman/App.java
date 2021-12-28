@@ -1,9 +1,6 @@
 package main.hangman;
 
-import components.sections.ChancesImage;
-import components.sections.CharactersLeft;
-import components.sections.GameHeader;
-import components.sections.TopMenu;
+import components.sections.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -11,7 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class App extends Application {
@@ -27,7 +23,6 @@ public class App extends Application {
     public static class ReloadCharactersLeft {
         public void run(Game game, CharactersLeft charsLeft) {
             charsLeft.setGame(game);
-            // System.out.println("AAAA: " + charsLeft.getContainer().getChildren());
         }
     }
 
@@ -36,6 +31,13 @@ public class App extends Application {
             chancesImage.setGame(game);
             System.out.println("AAAA: " + chancesImage.getVBox().getChildren());
 
+        }
+    }
+
+    public static class ReloadWordDisplay {
+        public void run(Game game, WordDisplay wordDisplay) {
+            wordDisplay.setGame(game);
+            System.out.println("BBB: " + wordDisplay.getVBox().getChildren());
         }
     }
 
@@ -63,11 +65,10 @@ public class App extends Application {
         ChancesImage chancesImage = new ChancesImage(game);
         main.setLeft(chancesImage.getVBox());
 
-        //border.setLeft(addVBox());
-        //border.setCenter(addGridPane());
-        //border.setRight(addFlowPane());
+        WordDisplay wordDisplay = new WordDisplay(game);
+        main.setCenter(wordDisplay.getVBox());
 
-        TopMenu topmenu = new TopMenu(stage, game, gameHeader, charsLeft, chancesImage);
+        TopMenu topmenu = new TopMenu(stage, game, gameHeader, charsLeft, chancesImage, wordDisplay);
         MenuBar menuBar = topmenu.getMenuBar();
         menuBar.setStyle(menuItemStyles);
 

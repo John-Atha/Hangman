@@ -46,4 +46,10 @@ public class MyStyles {
 
     public static String char_ =
             "-fx-padding: 20px;";
+
+    public static String letter =
+            "-fx-font-size: 40px;";
+
+    public static String index =
+            "-fx-font-size: 30px;";
 }
