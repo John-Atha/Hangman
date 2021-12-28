@@ -317,7 +317,7 @@ public class Game {
         this.prevRounds.add(last_round);
     }
 
-    private void giveUp() throws GameOverException{
+    public void giveUp() throws GameOverException{
         this.playing = false;
         this.won = false;
         this.saveGame();

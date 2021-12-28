@@ -23,12 +23,7 @@ public class App extends Application {
         Game game = new Game(new ArrayList<String>());
 
         GameHeader gameHeader = new GameHeader(game, main);
-        // if (game.isPlaying()) {
-            main.setTop(gameHeader.getVBox());
-        // }
-        // else {
-        //     main.setTop(null);
-        // }
+        main.setTop(gameHeader.getVBox());
 
         CharactersLeft charsLeft = new CharactersLeft(game);
         main.setRight(charsLeft.getVBox());
@@ -44,7 +39,7 @@ public class App extends Application {
 
         TopMenu topmenu = new TopMenu(stage, game, gameHeader, charsLeft, chancesImage, wordDisplay, characterForm);
         MenuBar menuBar = topmenu.getMenuBar();
-        menuBar.setStyle(MyStyles.menuItem);
+
 
         page.getChildren().add(menuBar);
         page.getChildren().add(main);

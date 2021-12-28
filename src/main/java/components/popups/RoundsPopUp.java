@@ -51,7 +51,7 @@ public class RoundsPopUp {
 
     private void setRounds(ArrayList<ArrayList<String>> rounds) {
         if (rounds.size()==0) {
-            this.message = new Text("No rounds played till now.");
+            this.message = new Text("No rounds completed till now.");
             this.message.setStyle(MyStyles.error);
             this.container.getChildren().add(this.message);
         }

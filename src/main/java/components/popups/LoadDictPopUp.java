@@ -1,6 +1,7 @@
 package components.popups;
 
 import components.sections.*;
+import exceptions.GameOverException;
 import exceptions.LoadedDictionaryException;
 import helpers.MyStyles;
 import javafx.event.ActionEvent;
@@ -28,7 +29,7 @@ public class LoadDictPopUp {
     private Label title;
 
     @FXML
-    private Label note;
+    private Text note;
 
     @FXML
     private HBox hBox1;
@@ -57,23 +58,18 @@ public class LoadDictPopUp {
 
     public LoadDictPopUp(
             Game game,
-            GameHeader gameHeader,       // App.ReloadHeader reloadHeader,
-            CharactersLeft charsLeft,    // App.ReloadCharactersLeft reloadCharactersLeft,
-            ChancesImage chancesImage,   // App.ReloadChancesImage reloadChancesImage,
-            WordDisplay wordDisplay,     // App.ReloadWordDisplay reloadWordDisplay,
-            CharacterForm characterForm //, App.ReloadCharacterForm reloadCharacterForm
+            GameHeader gameHeader,
+            CharactersLeft charsLeft,
+            ChancesImage chancesImage,
+            WordDisplay wordDisplay,
+            CharacterForm characterForm
             ) {
         this.game = game;
         this.gameHeader = gameHeader;
-        // this.reloadHeader = reloadHeader;
         this.charsLeft = charsLeft;
-        // this.reloadCharactersLeft = reloadCharactersLeft;
         this.chancesImage = chancesImage;
-        // this.reloadChancesImage = reloadChancesImage;
         this.wordDisplay = wordDisplay;
-        // this.reloadWordDisplay = reloadWordDisplay;
         this.characterForm = characterForm;
-        // this.reloadCharacterForm = reloadCharacterForm;
 
         this.popup = new Stage();
         popup.setTitle("Load dictionary");
@@ -83,9 +79,8 @@ public class LoadDictPopUp {
 
         this.title = new Label("Load");
 
-        this.note = new Label("If you are currently playing a game, loading a new dictionary will terminate this round and will count as a loss.");
-        this.note.setStyle(MyStyles.label);
-        this.note.setPadding(new Insets(30));
+        this.note = new Text(this.game.isPlaying() ? "Warning: Loading a new dictionary will terminate this round and count as a loss." : "");
+        this.note.setStyle(MyStyles.error);
 
         this.label1 = new Label("Insert the id of the dictionary you would like to load.");
         this.dictField = new TextField();
@@ -139,7 +134,7 @@ public class LoadDictPopUp {
         try {
             reader.read();
             this.game.addDict(ID_dict, reader.getWords());
-            this.message.setText("Read dictionary with id " + ID_dict + " successfully.");
+            this.message.setText("Read dictionary with id " + ID_dict + " successfully" +  (this.game.isPlaying() ? ", running round was abandoned" : "") + ".");
             this.message.setStyle(MyStyles.success);
         }
         catch (FileNotFoundException e) {
@@ -150,11 +145,22 @@ public class LoadDictPopUp {
             this.message.setText("Dictionary " +  reader.getName() + " already loaded, please try another ID");
             this.message.setStyle(MyStyles.error);
         }
-        // this.game.setPlaying(true);
-        this.gameHeader.update(game);
-        this.charsLeft.update(game);
-        this.chancesImage.update(game);
-        this.wordDisplay.update(game);
-        this.characterForm.update(game);
+        if (this.game.isPlaying()) {
+            try {
+                System.out.println("RESETTING THE GAME !!");
+                this.game.giveUp();
+            }
+            catch (GameOverException e) {
+                this.characterForm.onGameOver();
+            }
+        }
+
+        else {
+            this.gameHeader.update(game);
+            this.charsLeft.update(game);
+            this.chancesImage.update(game);
+            this.wordDisplay.update(game);
+            this.characterForm.update(game);
+        }
     }
 }

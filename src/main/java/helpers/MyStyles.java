@@ -4,8 +4,11 @@ package helpers;
 
 public class MyStyles {
 
-    public static String menuItem =
+    public static String menu =
             "-fx-font-size: 50px;";
+
+    public static String menuItem =
+            "-fx-font-size: 40px;";
 
     public static String title =
             "-fx-font-size: 40px;" +

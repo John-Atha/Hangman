@@ -190,21 +190,25 @@ public class CharacterForm extends UpdatableSection{
             this.generate_error("The letter of this position is already found!", "");
         }
         catch (GameOverException e) {
-            this.vBox.getChildren().remove(this.title);
-            this.vBox.getChildren().remove(this.grid);
-            this.vBox.getChildren().remove(this.submit_button);
-
-            if (this.game.isWon()) {
-                generate_success("Congratulations, YOU WON THE GAME !!", "Go to Application->Start to play again!!");
-            }
-            else {
-                generate_error("Oops, you lost the game...", "Go to Application->Start to try again!");
-            }
-            this.gameheader.update(this.game);
-            this.charactersLeft.update(this.game);
-            this.chancesImage.update(this.game);
-            this.wordDisplay.update(this.game);
+            this.onGameOver();
         }
+    }
+
+    public void onGameOver() {
+        this.vBox.getChildren().remove(this.title);
+        this.vBox.getChildren().remove(this.grid);
+        this.vBox.getChildren().remove(this.submit_button);
+
+        if (this.game.isWon()) {
+            generate_success("Congratulations, YOU WON THE LAST GAME !!", "Go to Application->Start to play again!!");
+        }
+        else {
+            generate_error("Oops, you lost the last game...", "Go to Application->Start to try again!");
+        }
+        this.gameheader.update(this.game);
+        this.charactersLeft.update(this.game);
+        this.chancesImage.update(this.game);
+        this.wordDisplay.update(this.game);
     }
 
     public VBox getVBox() {

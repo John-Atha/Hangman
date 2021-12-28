@@ -2,7 +2,9 @@ package components.sections;
 
 import components.popups.*;
 import components.sections.GameHeader;
+import exceptions.GameOverException;
 import exceptions.NoDictsException;
+import helpers.MyStyles;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,12 +28,6 @@ public class TopMenu {
     private WordDisplay wordDisplay;
     private CharacterForm characterForm;
 
-    // private App.ReloadHeader reloadHeader;
-    // private App.ReloadCharactersLeft reloadCharactersLeft;
-    // private App.ReloadChancesImage reloadChancesImage;
-    // private App.ReloadWordDisplay reloadWordDisplay;
-    // private App.ReloadCharacterForm reloadCharacterForm;
-
     public MenuBar getMenuBar() {
         return this.menuBar;
     }
@@ -52,22 +48,19 @@ public class TopMenu {
         this.wordDisplay = wordDisplay;
         this.characterForm = characterForm;
 
-        // this.reloadHeader = new App.ReloadHeader();
-        // this.reloadCharactersLeft = new App.ReloadCharactersLeft();
-        // this.reloadChancesImage = new App.ReloadChancesImage();
-        // this.reloadWordDisplay = new App.ReloadWordDisplay();
-        // this.reloadCharacterForm = new App.ReloadCharacterForm();
-
         Menu application = new Menu("Application");
 
-        MenuItem start = new MenuItem("start");
+        MenuItem start = new MenuItem("Start");
         start.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                // reloadHeader.run(game, gameHeader);
-                // reloadCharactersLeft.run(game, charsLeft);
-                // reloadChancesImage.run(game, chancesImage);
-                // reloadWordDisplay.run(game, wordDisplay);
-                // reloadCharacterForm.run(game, characterForm);
+                if (game.isPlaying()) {
+                    try {
+                        System.out.println("RESETTING THE GAME !!");
+                        game.giveUp();
+                    } catch (GameOverException ex) {
+                        characterForm.onGameOver();
+                    }
+                }
                 try {
                     game.newRound(); // the exception will be thrown here if no words are available...
                     gameHeader.update(game);
@@ -83,11 +76,10 @@ public class TopMenu {
                     popup.initModality(Modality.APPLICATION_MODAL);
                     popup.showAndWait();
                 }
-
             }
         });
 
-        MenuItem create = new MenuItem("create");
+        MenuItem create = new MenuItem("Create");
         create.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 CreateDictPopUp createDictPopUp = new CreateDictPopUp();
@@ -98,16 +90,16 @@ public class TopMenu {
             }
         });
 
-        MenuItem load =  new MenuItem("load");
+        MenuItem load =  new MenuItem("Load");
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 LoadDictPopUp loadDictPopUp = new LoadDictPopUp(
                         game,
-                        gameHeader,    // reloadHeader,
-                        charsLeft,     // reloadCharactersLeft,
-                        chancesImage,  // reloadChancesImage,
-                        wordDisplay,   // reloadWordDisplay,
-                        characterForm //, reloadCharacterForm
+                        gameHeader,
+                        charsLeft,
+                        chancesImage,
+                        wordDisplay,
+                        characterForm
                 );
                 Stage popup = loadDictPopUp.getPopup();
                 popup.initOwner(stage);
@@ -116,7 +108,7 @@ public class TopMenu {
             }
         });
 
-        MenuItem exit = new MenuItem("exit");
+        MenuItem exit = new MenuItem("Exit");
         exit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Platform.exit();
@@ -127,7 +119,7 @@ public class TopMenu {
 
         Menu details = new Menu("Details");
 
-        MenuItem dictionary = new MenuItem("dictionary");
+        MenuItem dictionary = new MenuItem("Dictionary");
         dictionary.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 StatsPopUp statsPopUp = new StatsPopUp(game);
@@ -138,7 +130,7 @@ public class TopMenu {
             }
         });
 
-        MenuItem rounds = new MenuItem("rounds");
+        MenuItem rounds = new MenuItem("Rounds");
 
         rounds.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
@@ -151,7 +143,33 @@ public class TopMenu {
         });
 
 
-        MenuItem solution = new MenuItem("solution");
+        MenuItem solution = new MenuItem("Solution");
+
+        solution.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                SolutionPopUp solutionPopUp = new SolutionPopUp(
+                        game,
+                        characterForm
+                );
+                Stage popup = solutionPopUp.getPopUp();
+                popup.initOwner(stage);
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.showAndWait();
+            }
+        });
+
+        application.setStyle(MyStyles.menu);
+        details.setStyle(MyStyles.menu);
+
+        start.setStyle(MyStyles.menuItem);
+        create.setStyle(MyStyles.menuItem);
+        load.setStyle(MyStyles.menuItem);
+        exit.setStyle(MyStyles.menuItem);
+        dictionary.setStyle(MyStyles.menuItem);
+        solution.setStyle(MyStyles.menuItem);
+        rounds.setStyle(MyStyles.menuItem);
+
+
         details.getItems().addAll(dictionary, rounds, solution);
 
         this.menuBar.getMenus().addAll(application, details);

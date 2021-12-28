@@ -117,7 +117,7 @@ public class CreateDictPopUp {
             DictMaker dict = new DictMaker(ID_chosen, BASEURL, ID_dict);
             dict.write();
 
-            this.message.setText("Built dictionary with id " + ID_chosen + " successfully.");
+            this.message.setText("Built dictionary with id " + ID_dict + " successfully.");
             this.message.setStyle(MyStyles.success);
 
         }
