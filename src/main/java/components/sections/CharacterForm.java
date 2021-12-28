@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class CharacterForm {
+public class CharacterForm extends UpdatableSection{
     private Game game;
 
     @FXML

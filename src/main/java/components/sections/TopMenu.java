@@ -22,11 +22,17 @@ public class TopMenu {
     private Stage stage;
     private Game game;
 
-    private App.ReloadHeader reloadHeader;
-    private App.ReloadCharactersLeft reloadCharactersLeft;
-    private App.ReloadChancesImage reloadChancesImage;
-    private App.ReloadWordDisplay reloadWordDisplay;
-    private App.ReloadCharacterForm reloadCharacterForm;
+    private GameHeader gameHeader;
+    private CharactersLeft charactersLeft;
+    private ChancesImage chancesImage;
+    private WordDisplay wordDisplay;
+    private CharacterForm characterForm;
+
+    // private App.ReloadHeader reloadHeader;
+    // private App.ReloadCharactersLeft reloadCharactersLeft;
+    // private App.ReloadChancesImage reloadChancesImage;
+    // private App.ReloadWordDisplay reloadWordDisplay;
+    // private App.ReloadCharacterForm reloadCharacterForm;
 
     public MenuBar getMenuBar() {
         return this.menuBar;
@@ -42,23 +48,33 @@ public class TopMenu {
         this.menuBar = new MenuBar();
         this.stage = stage;
         this.game = game;
+        this.gameHeader = gameHeader;
+        this.charactersLeft = charsLeft;
+        this.chancesImage = chancesImage;
+        this.wordDisplay = wordDisplay;
+        this.characterForm = characterForm;
 
-        this.reloadHeader = new App.ReloadHeader();
-        this.reloadCharactersLeft = new App.ReloadCharactersLeft();
-        this.reloadChancesImage = new App.ReloadChancesImage();
-        this.reloadWordDisplay = new App.ReloadWordDisplay();
-        this.reloadCharacterForm = new App.ReloadCharacterForm();
+        // this.reloadHeader = new App.ReloadHeader();
+        // this.reloadCharactersLeft = new App.ReloadCharactersLeft();
+        // this.reloadChancesImage = new App.ReloadChancesImage();
+        // this.reloadWordDisplay = new App.ReloadWordDisplay();
+        // this.reloadCharacterForm = new App.ReloadCharacterForm();
 
         Menu application = new Menu("Application");
 
         MenuItem start = new MenuItem("start");
         start.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                reloadHeader.run(game, gameHeader);
-                reloadCharactersLeft.run(game, charsLeft);
-                reloadChancesImage.run(game, chancesImage);
-                reloadWordDisplay.run(game, wordDisplay);
-                reloadCharacterForm.run(game, characterForm);
+                // reloadHeader.run(game, gameHeader);
+                // reloadCharactersLeft.run(game, charsLeft);
+                // reloadChancesImage.run(game, chancesImage);
+                // reloadWordDisplay.run(game, wordDisplay);
+                // reloadCharacterForm.run(game, characterForm);
+                gameHeader.update(game);
+                charsLeft.update(game);
+                chancesImage.update(game);
+                wordDisplay.update(game);
+                characterForm.update(game);
             }
         });
 
@@ -78,11 +94,11 @@ public class TopMenu {
             @Override public void handle(ActionEvent e) {
                 LoadDictPopUp loadDictPopUp = new LoadDictPopUp(
                         game,
-                        gameHeader, reloadHeader,
-                        charsLeft, reloadCharactersLeft,
-                        chancesImage, reloadChancesImage,
-                        wordDisplay, reloadWordDisplay,
-                        characterForm, reloadCharacterForm
+                        gameHeader,    // reloadHeader,
+                        charsLeft,     // reloadCharactersLeft,
+                        chancesImage,  // reloadChancesImage,
+                        wordDisplay,   // reloadWordDisplay,
+                        characterForm //, reloadCharacterForm
                 );
                 Stage popup = loadDictPopUp.getPopup();
                 popup.initOwner(stage);

@@ -47,35 +47,35 @@ public class LoadDictPopUp {
 
     private Game game;
     private GameHeader gameHeader;
-    private App.ReloadHeader reloadHeader;
+    // private App.ReloadHeader reloadHeader;
     private CharactersLeft charsLeft;
-    private App.ReloadCharactersLeft reloadCharactersLeft;
+    // private App.ReloadCharactersLeft reloadCharactersLeft;
     private ChancesImage chancesImage;
-    private App.ReloadChancesImage reloadChancesImage;
+    // private App.ReloadChancesImage reloadChancesImage;
     private WordDisplay wordDisplay;
-    private App.ReloadWordDisplay reloadWordDisplay;
+    // private App.ReloadWordDisplay reloadWordDisplay;
     private CharacterForm characterForm;
-    private App.ReloadCharacterForm reloadCharacterForm;
+    // private App.ReloadCharacterForm reloadCharacterForm;
 
     public LoadDictPopUp(
             Game game,
-            GameHeader gameHeader,       App.ReloadHeader reloadHeader,
-            CharactersLeft charsLeft,    App.ReloadCharactersLeft reloadCharactersLeft,
-            ChancesImage chancesImage,   App.ReloadChancesImage reloadChancesImage,
-            WordDisplay wordDisplay,     App.ReloadWordDisplay reloadWordDisplay,
-            CharacterForm characterForm, App.ReloadCharacterForm reloadCharacterForm
+            GameHeader gameHeader,       // App.ReloadHeader reloadHeader,
+            CharactersLeft charsLeft,    // App.ReloadCharactersLeft reloadCharactersLeft,
+            ChancesImage chancesImage,   // App.ReloadChancesImage reloadChancesImage,
+            WordDisplay wordDisplay,     // App.ReloadWordDisplay reloadWordDisplay,
+            CharacterForm characterForm //, App.ReloadCharacterForm reloadCharacterForm
             ) {
         this.game = game;
         this.gameHeader = gameHeader;
-        this.reloadHeader = reloadHeader;
+        // this.reloadHeader = reloadHeader;
         this.charsLeft = charsLeft;
-        this.reloadCharactersLeft = reloadCharactersLeft;
+        // this.reloadCharactersLeft = reloadCharactersLeft;
         this.chancesImage = chancesImage;
-        this.reloadChancesImage = reloadChancesImage;
+        // this.reloadChancesImage = reloadChancesImage;
         this.wordDisplay = wordDisplay;
-        this.reloadWordDisplay = reloadWordDisplay;
+        // this.reloadWordDisplay = reloadWordDisplay;
         this.characterForm = characterForm;
-        this.reloadCharacterForm = reloadCharacterForm;
+        // this.reloadCharacterForm = reloadCharacterForm;
 
         this.popup = new Stage();
         popup.setTitle("Load dictionary");
@@ -150,10 +150,15 @@ public class LoadDictPopUp {
             this.message.setStyle(MyStyles.error);
         }
         this.game.newRound(false);
-        this.reloadHeader.run(this.game, this.gameHeader);
-        this.reloadCharactersLeft.run(this.game, this.charsLeft);
-        this.reloadChancesImage.run(this.game, this.chancesImage);
-        this.reloadWordDisplay.run(this.game, this.wordDisplay);
-        this.reloadCharacterForm.run(this.game, this.characterForm);
+        // this.reloadHeader.run(this.game, this.gameHeader);
+        // this.reloadCharactersLeft.run(this.game, this.charsLeft);
+        // this.reloadChancesImage.run(this.game, this.chancesImage);
+        // this.reloadWordDisplay.run(this.game, this.wordDisplay);
+        // this.reloadCharacterForm.run(this.game, this.characterForm);
+        this.gameHeader.update(game);
+        this.charsLeft.update(game);
+        this.chancesImage.update(game);
+        this.wordDisplay.update(game);
+        this.characterForm.update(game);
     }
 }

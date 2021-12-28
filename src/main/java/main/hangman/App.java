@@ -1,6 +1,7 @@
 package main.hangman;
 
 import components.sections.*;
+import helpers.MyStyles;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -11,42 +12,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class App extends Application {
-
-    private String menuItemStyles = "-fx-font-size: 50px;";
-
-    public static class ReloadHeader {
-        public void run(Game game, GameHeader gameHeader) {
-            gameHeader.setGame(game, false);
-        }
-    }
-
-    public static class ReloadCharactersLeft {
-        public void run(Game game, CharactersLeft charsLeft) {
-            charsLeft.setGame(game);
-        }
-    }
-
-    public static class ReloadChancesImage {
-        public void run(Game game, ChancesImage chancesImage) {
-            chancesImage.setGame(game);
-            System.out.println("AAAA: " + chancesImage.getVBox().getChildren());
-        }
-    }
-
-    public static class ReloadWordDisplay {
-        public void run(Game game, WordDisplay wordDisplay) {
-            wordDisplay.setGame(game);
-            System.out.println("BBB: " + wordDisplay.getVBox().getChildren());
-        }
-    }
-
-    public static class ReloadCharacterForm {
-        public void run(Game game, CharacterForm characterForm) {
-            characterForm.setGame(game);
-            System.out.println("CCC: " + characterForm.getVBox().getChildren());
-        }
-    }
-
 
     @Override
     public void start(Stage stage) {
@@ -79,7 +44,7 @@ public class App extends Application {
 
         TopMenu topmenu = new TopMenu(stage, game, gameHeader, charsLeft, chancesImage, wordDisplay, characterForm);
         MenuBar menuBar = topmenu.getMenuBar();
-        menuBar.setStyle(menuItemStyles);
+        menuBar.setStyle(MyStyles.menuItem);
 
         page.getChildren().add(menuBar);
         page.getChildren().add(main);

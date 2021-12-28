@@ -3,6 +3,10 @@ package helpers;
 // some styles from: http://fxexperience.com/2011/12/styling-fx-buttons-with-css/
 
 public class MyStyles {
+
+    public static String menuItem =
+            "-fx-font-size: 50px;";
+
     public static String title =
             "-fx-font-size: 40px;" +
             "-fx-font-weight: bold;";
