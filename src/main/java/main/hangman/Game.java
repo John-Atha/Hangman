@@ -149,14 +149,16 @@ public class Game {
     }
 
     private void filterWordsByNewLetter(int index, char c, boolean afterCorrectGuess) {
+        ArrayList<String> temp_words_left = new ArrayList<>(this.words_left);
         for (String word : this.words_left) {
             if (afterCorrectGuess && word.charAt(index)!=c) {
-                this.words_left.remove(word);
+                temp_words_left.remove(word);
             }
             else if (!afterCorrectGuess && word.charAt(index)==c) {
-                this.words_left.remove(word);
+                temp_words_left.remove(word);
             }
         }
+        this.words_left = temp_words_left;
     }
 
     public Set<Character> getAvailable_chars() {

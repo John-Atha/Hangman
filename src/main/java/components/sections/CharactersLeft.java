@@ -12,7 +12,7 @@ import main.hangman.Game;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CharactersLeft {
+public class CharactersLeft extends UpdatableSection {
     @FXML
     private VBox vBox;
     @FXML

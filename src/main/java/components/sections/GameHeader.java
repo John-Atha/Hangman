@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.hangman.Game;
 
-public class GameHeader {
+public class GameHeader extends UpdatableSection {
 
     @FXML
     private TableView table;
@@ -43,6 +43,10 @@ public class GameHeader {
         this.vBox.setSpacing(8);
         this.parent = parent;
         this.setGame(game, true);
+    }
+
+    public void setGame(Game game) {
+        this.setGame(game, false);
     }
 
     public void setGame(Game game, boolean create) {

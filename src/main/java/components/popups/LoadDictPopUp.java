@@ -1,9 +1,6 @@
 package components.popups;
 
-import components.sections.ChancesImage;
-import components.sections.CharactersLeft;
-import components.sections.GameHeader;
-import components.sections.WordDisplay;
+import components.sections.*;
 import exceptions.LoadedDictionaryException;
 import helpers.MyStyles;
 import javafx.event.ActionEvent;
@@ -57,13 +54,16 @@ public class LoadDictPopUp {
     private App.ReloadChancesImage reloadChancesImage;
     private WordDisplay wordDisplay;
     private App.ReloadWordDisplay reloadWordDisplay;
+    private CharacterForm characterForm;
+    private App.ReloadCharacterForm reloadCharacterForm;
 
     public LoadDictPopUp(
             Game game,
-            GameHeader gameHeader,     App.ReloadHeader reloadHeader,
-            CharactersLeft charsLeft,  App.ReloadCharactersLeft reloadCharactersLeft,
-            ChancesImage chancesImage, App.ReloadChancesImage reloadChancesImage,
-            WordDisplay wordDisplay,   App.ReloadWordDisplay reloadWordDisplay
+            GameHeader gameHeader,       App.ReloadHeader reloadHeader,
+            CharactersLeft charsLeft,    App.ReloadCharactersLeft reloadCharactersLeft,
+            ChancesImage chancesImage,   App.ReloadChancesImage reloadChancesImage,
+            WordDisplay wordDisplay,     App.ReloadWordDisplay reloadWordDisplay,
+            CharacterForm characterForm, App.ReloadCharacterForm reloadCharacterForm
             ) {
         this.game = game;
         this.gameHeader = gameHeader;
@@ -74,6 +74,8 @@ public class LoadDictPopUp {
         this.reloadChancesImage = reloadChancesImage;
         this.wordDisplay = wordDisplay;
         this.reloadWordDisplay = reloadWordDisplay;
+        this.characterForm = characterForm;
+        this.reloadCharacterForm = reloadCharacterForm;
 
         this.popup = new Stage();
         popup.setTitle("Load dictionary");
@@ -137,20 +139,21 @@ public class LoadDictPopUp {
             // temp_words = this.game.getWords();
             this.game.addDict(ID_dict, reader.getWords());
             this.message.setText("Read dictionary with id " + ID_dict + " successfully.");
-            this.message.setStyle("-fx-font-size: 30px; -fx-fill: green;");
+            this.message.setStyle(MyStyles.success);
         }
         catch (FileNotFoundException e) {
             this.message.setText("Dictionary " +  reader.getName() + " not found, please try another ID");
-            this.message.setStyle("-fx-font-size: 30px; -fx-fill: red;");
+            this.message.setStyle(MyStyles.error);
         }
         catch (LoadedDictionaryException e) {
             this.message.setText("Dictionary " +  reader.getName() + " already loaded, please try another ID");
-            this.message.setStyle("-fx-font-size: 30px; -fx-fill: red;");
+            this.message.setStyle(MyStyles.error);
         }
         this.game.newRound(false);
         this.reloadHeader.run(this.game, this.gameHeader);
         this.reloadCharactersLeft.run(this.game, this.charsLeft);
         this.reloadChancesImage.run(this.game, this.chancesImage);
         this.reloadWordDisplay.run(this.game, this.wordDisplay);
+        this.reloadCharacterForm.run(this.game, this.characterForm);
     }
 }

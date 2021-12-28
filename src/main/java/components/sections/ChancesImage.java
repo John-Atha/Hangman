@@ -12,7 +12,7 @@ import main.hangman.Game;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ChancesImage {
+public class ChancesImage extends UpdatableSection {
     private Game game;
     private Image image;
 

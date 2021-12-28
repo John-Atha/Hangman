@@ -6,14 +6,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.hangman.Game;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class WordDisplay {
+public class WordDisplay extends UpdatableSection {
     private Game game;
     @FXML
     private VBox vBox;
@@ -23,8 +22,8 @@ public class WordDisplay {
     private FlowPane flow;
 
     public WordDisplay(Game game) {
-        this.setGame(game);
         this.vBox = new VBox();
+        this.setGame(game);
     }
 
     public Game getGame() {
@@ -55,7 +54,9 @@ public class WordDisplay {
                 char_index.setStyle(MyStyles.index);
 
                 char_container.getChildren().add(char_display);
-                char_container.getChildren().add(char_index);
+                if (!this.game.getShown_indexes().contains(i)) {
+                    char_container.getChildren().add(char_index);
+                }
 
                 this.flow.getChildren().add(char_container);
             }

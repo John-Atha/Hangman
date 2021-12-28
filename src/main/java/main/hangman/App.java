@@ -30,7 +30,6 @@ public class App extends Application {
         public void run(Game game, ChancesImage chancesImage) {
             chancesImage.setGame(game);
             System.out.println("AAAA: " + chancesImage.getVBox().getChildren());
-
         }
     }
 
@@ -38,6 +37,13 @@ public class App extends Application {
         public void run(Game game, WordDisplay wordDisplay) {
             wordDisplay.setGame(game);
             System.out.println("BBB: " + wordDisplay.getVBox().getChildren());
+        }
+    }
+
+    public static class ReloadCharacterForm {
+        public void run(Game game, CharacterForm characterForm) {
+            characterForm.setGame(game);
+            System.out.println("CCC: " + characterForm.getVBox().getChildren());
         }
     }
 
@@ -68,7 +74,10 @@ public class App extends Application {
         WordDisplay wordDisplay = new WordDisplay(game);
         main.setCenter(wordDisplay.getVBox());
 
-        TopMenu topmenu = new TopMenu(stage, game, gameHeader, charsLeft, chancesImage, wordDisplay);
+        CharacterForm characterForm = new CharacterForm(game, gameHeader, charsLeft, chancesImage, wordDisplay);
+        main.setBottom(characterForm.getVBox());
+
+        TopMenu topmenu = new TopMenu(stage, game, gameHeader, charsLeft, chancesImage, wordDisplay, characterForm);
         MenuBar menuBar = topmenu.getMenuBar();
         menuBar.setStyle(menuItemStyles);
 

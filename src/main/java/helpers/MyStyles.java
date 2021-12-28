@@ -29,7 +29,7 @@ public class MyStyles {
 
     public static String success =
             "-fx-font-size: 30px;" +
-            "-fx-fill: green;";
+            "-fx-fill: #2e8a00;";
 
     public static String error =
             "-fx-font-size: 30px;" +
