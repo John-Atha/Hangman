@@ -59,4 +59,10 @@ public class MyStyles {
 
     public static String index =
             "-fx-font-size: 30px;";
+
+    public static String border =
+            "-fx-border-color: red;\n" +
+            "-fx-border-insets: 5;\n" +
+            "-fx-border-width: 3;\n" +
+            "-fx-border-style: dashed;\n";
 }

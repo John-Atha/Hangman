@@ -5,10 +5,7 @@ import exceptions.LoadedDictionaryException;
 import exceptions.NoDictsException;
 import exceptions.ShownCharException;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Game {
 
@@ -17,7 +14,7 @@ public class Game {
     private ArrayList<String> words_left;
 
     private ArrayList<Integer> shown_indexes;
-    private Set<Character> available_chars;
+    private Map<Integer, ArrayList<Character>> available_chars;
     private ArrayList<String> loaded_dicts_ids;
 
     private int moves;
@@ -148,9 +145,20 @@ public class Game {
         return true;
     }
 
-    private void filterWordsBySizeAndShownLetters() {
+    /*private void filterWordsBySizeAndShownLetters() {
         this.words_left = new ArrayList<String>();
         for (String word : this.words) {
+            if (this.isWordAccepted(word)) {
+                this.words_left.add(word);
+            }
+        }
+    }*/
+    private void filterWordsBySizeAndShownLetters() {
+        ArrayList<String> temp = new ArrayList<>(this.words_left);
+
+        this.words_left = new ArrayList<String>();
+
+        for (String word : temp) {
             if (this.isWordAccepted(word)) {
                 this.words_left.add(word);
             }
@@ -159,21 +167,27 @@ public class Game {
 
     private void filterWordsByNewLetter(int index, char c, boolean afterCorrectGuess) {
         ArrayList<String> temp_words_left = new ArrayList<>(this.words_left);
+        if (!afterCorrectGuess) {
+            System.out.println("Removing words with letter " + c + " at index " + index);
+        }
         for (String word : this.words_left) {
-            if (afterCorrectGuess && word.charAt(index)!=c) {
+            System.out.println("Seeing: " + word.toUpperCase(Locale.ROOT).charAt(index));
+            if (afterCorrectGuess && word.toUpperCase(Locale.ROOT).charAt(index)!=c) {
                 temp_words_left.remove(word);
             }
-            else if (!afterCorrectGuess && word.charAt(index)==c) {
+            else if (!afterCorrectGuess && word.toUpperCase(Locale.ROOT).charAt(index)==c) {
+                System.out.println("REMOVING --------- " + word);
                 temp_words_left.remove(word);
             }
         }
         this.words_left = temp_words_left;
+        System.out.println("Remaining: " + this.words_left);
     }
 
-    public Set<Character> getAvailable_chars() {
+    public Map<Integer, ArrayList<Character>> getAvailable_chars() {
         return available_chars;
     }
-    public void setAvailable_chars(Set<Character> available_chars) {
+    public void setAvailable_chars(Map<Integer, ArrayList<Character>> available_chars) {
         this.available_chars = available_chars;
     }
 
@@ -187,7 +201,7 @@ public class Game {
         this.prevRounds = new ArrayList<ArrayList<String>>();
         this.loaded_dicts_ids = new ArrayList<String>();
         this.words = words!=null ? words : new ArrayList<String>();
-        this.available_chars = new HashSet<Character>();
+        this.available_chars = new HashMap<Integer, ArrayList<Character>>();
         this.shown_indexes = new ArrayList<Integer>();
         this.words_left = new ArrayList<String>(words);
         this.moves = 0;
@@ -213,7 +227,7 @@ public class Game {
 
         if (this.available_chars == null) {
             System.out.println("Clearing available chars...");
-            this.available_chars = new HashSet<Character>();
+            this.available_chars = new HashMap<Integer, ArrayList<Character>>();
         }
         if (!(this.words==null || this.words.isEmpty())) {
             this.pickWord();
@@ -240,7 +254,7 @@ public class Game {
             }
         }
         this.words_left = new ArrayList<>(this.words);
-        this.updateAvailableChars();
+        //this.updateAvailableChars();
     }
 
     private void computeProb(int index, char c) {
@@ -302,22 +316,87 @@ public class Game {
         }
     }
 
-    private void updateAvailableChars() {
-        System.out.print("I am the game, updating my available chars based on words left: " + this.words_left);
-        this.available_chars = new HashSet<Character>();
-        Set shown_chars = new HashSet<Character>();
-
-        for (int i : this.shown_indexes) {
-            shown_chars.add(this.word.charAt(i));
+    // a simple class to be used for keeping and sorting the characters at an index by their possibility
+    private class Position implements  Comparable<Position> {
+        private char c;
+        private float p;
+        public Position(char c, float p) {
+            this.c = c;
+            this.p = p;
         }
+        public char getC() {
+            return c;
+        }
+        public float getP() {
+            return p;
+        }
+        // reverse sorting...
+        @Override
+        public int compareTo(Position position) {
+            return (this.p >= position.getP()) ? -1 : 1;
+        }
+    }
 
-        for (String word : this.words_left) {
-            for (Character c : word.toCharArray()) {
-                if (!shown_chars.contains(c)) {
-                    this.available_chars.add(c);
+    private void updateAvailableChars() {
+        this.filterWordsBySizeAndShownLetters();
+        System.out.print("SEEING words left: " + this.words_left);
+        this.available_chars = new HashMap<Integer, ArrayList<Character>>();
+        // Set shown_chars = new HashSet<Character>();
+
+
+        // for each hidden position of the word
+        for (int index=0; index<word.length(); index++) {
+            if (!shown_indexes.contains(index)) {
+                // count the shows of each char in the hashmap `counter`
+                Map counter = new HashMap<Character,  ArrayList<Float>>();
+                float all = words_left.size();
+                for (String word_ : words_left) {
+                    char c = word_.charAt(index);
+                    if (counter.get(c)!=null) {
+                        int x = (int) counter.get(c);
+                        counter.put(c, x+1);
+                    }
+                    else {
+                        counter.put(c, 1);
+                    }
                 }
+                // turn the values of the `counter` to probabilities
+                for (Object key : counter.keySet()) {
+                    int x = (int) counter.get(key);
+                    counter.put(key, x/all);
+                }
+
+                // turn the items to 'Position' objects, to sort them easily
+                ArrayList<Character> chars = new ArrayList<>(counter.keySet());
+                ArrayList<Float> ps = new ArrayList<>(counter.values());
+                ArrayList<Position> positions = new ArrayList<>();
+                for (int i=0 ;i <chars.size(); i++) {
+                    Position pos = new Position(chars.get(i), ps.get(i));
+                    positions.add(pos);
+                }
+                Collections.sort(positions);
+                // store in an arraylist
+                ArrayList<Character> sorted = new ArrayList<>();
+                for (Position pos : positions) {
+                    sorted.add(pos.getC());
+                }
+                // store in state dictionary
+                this.available_chars.put(index, sorted);
             }
         }
+        System.out.println(this.available_chars);
+
+        // for (int i : this.shown_indexes) {
+        //     shown_chars.add(this.word.charAt(i));
+        // }
+        //
+        // for (String word : this.words_left) {
+        //     for (Character c : word.toCharArray()) {
+        //         if (!shown_chars.contains(c)) {
+        //             this.available_chars.add(c);
+        //         }
+        //     }
+        // }
         // System.out.println(this.available_chars);
     }
 
