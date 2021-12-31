@@ -1,3 +1,8 @@
 *.class
 testing/
 target/apidocs/*
+target/site/apidocs/main.hangman/components
+target/site/apidocs/main.hangman/exceptions
+target/site/apidocs/main.hangman/helpers
+target/site/apidocs/main.hangman/main
+target/site/apidocs/main.hangman/test
