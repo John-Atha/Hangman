@@ -1,5 +1,0 @@
-module:main.hangman
-components.popups
-components.sections
-helpers
-main.hangman
