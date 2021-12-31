@@ -13,13 +13,59 @@ import exceptions.NotFoundException;
 import exceptions.UnbalancedException;
 import exceptions.UndersizeException;
 
+/**
+ * DictMaker is the class that writes a dictionary's words to a file
+ * @author John-Atha
+ */
 public class DictMaker {
 
+    /**
+     * the words that will be written in the file
+     */
     private ArrayList<String> words;
+
+    /**
+     * the ID of the BOOK of the Open Api that will be used as source
+     */
     private String ID;
+
+    /**
+     * the BASEURL of the API
+     */
     private String BASEURL;
+
+    /**
+     * <ul>
+     *     <li>
+     *         the ID of the dictionary that we will save
+     *     </li>
+     *     <li>
+     *         defines the name of the file: "medialab/hangman_DICTIONARY-" + this.ID_dict + ".txt";
+     *     </li>
+     * </ul>
+     */
     private String ID_dict;
 
+    /**
+     * constructor
+     * <ul>
+     *     <li>
+     *         Creates a `WordsPicker` object to receive an initial list of the description's words
+     *     </li>
+     *     <li>
+     *         Calls the `validate` method
+     *     </li>
+     * </ul>
+     *
+     * @param ID (same usage as the corresponding field)
+     * @param BASEURL (same usage as the corresponding field)
+     * @param ID_dict (same usage as the corresponding field)
+     * @throws InvalidCountException if there are duplicates in the dictionary
+     * @throws InvalidRangeException if words with less than 6 letters are included in tha dictionary
+     * @throws UndersizeException if number of accepted words is less than 20
+     * @throws UnbalancedException if less than 20% of the words have more than 9 letters
+     * @throws NotFoundException is thrown by the wordsPicker object that is being used in the DictMaker object
+     */
     public DictMaker(String ID, String BASEURL, String ID_dict) throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException, NotFoundException {
         System.out.println("Initializing dictionary maker...");
         this.setID(ID);
@@ -31,34 +77,85 @@ public class DictMaker {
         this.validate();
     }
 
+    /**
+     *
+     * @return current book id
+     */
     public String getId() {
         return this.ID;
     }
-    private void setID(String ID) {
+
+    /**
+     *
+     * @param ID to be updated
+     */
+    public void setID(String ID) {
         this.ID = ID;
     }
 
+    /**
+     *
+     * @return current BASEURL
+     */
     public String getBaseurl() {
         return this.BASEURL;
     }
-    private void setBaseurl(String BASEURL) {
+
+    /**
+     *
+     * @param BASEURL to be updated
+     */
+    public void setBaseurl(String BASEURL) {
         this.BASEURL = BASEURL;
     }
 
+    /**
+     *
+     * @return current dictionary id
+     */
     public String getDictId() {
         return this.ID_dict;
     }
-    private void setID_dict(String id_dict) {
+
+    /**
+     *
+     * @param id_dict to be updated
+     */
+    public void setID_dict(String id_dict) {
         this.ID_dict = id_dict;
     }
 
+    /**
+     *
+     * @return current words
+     */
     public ArrayList<String> getWords() {
         return this.words;
     }
-    private void setWords(ArrayList<String> words) {
+
+    /**
+     *
+     * @param words to be updated
+     */
+    public void setWords(ArrayList<String> words) {
         this.words = words;
     }
 
+    /**
+     * validates the dictionary
+     * <ul>
+     *    <li>
+     *        traverses the words of the dictionary
+     *    </li>
+     *    <li>
+     *      checks if one of the four exceptions should be thrown
+     *    </li>
+     * </ul>
+     * @throws InvalidCountException if there are duplicates in the dictionary
+     * @throws InvalidRangeException if words with less than 6 letters are included in tha dictionary
+     * @throws UndersizeException if number of accepted words is less than 20
+     * @throws UnbalancedException if less than 20% of the words have more than 9 letters
+     */
     public void validate() throws InvalidCountException, InvalidRangeException, UndersizeException, UnbalancedException {
         System.out.println("Validating dictionary...");
         String[] words_array = this.words.toArray(new String[0]);
@@ -83,6 +180,22 @@ public class DictMaker {
         }
     }
 
+    /**
+     * <ul>
+     *     <li>
+     *          creates a new file with the name "medialab/hangman_DICTIONARY-" + this.ID_dict + ".txt"
+     *     </li>
+     *     <li>
+     *          or over-writes it if it already exists <br/>
+     *     </li>
+     *     <li>
+     *          writes all the current words (each one in a separate line) <br/>
+     *     </li>
+     *     <li>
+     *          or prints the exception and returns if an exception occurs <br/>
+     *     </li>
+     * </ul>
+     */
     public void write() {
         String filename = "medialab/hangman_DICTIONARY-" + this.ID_dict + ".txt";
         File file = new File(filename);

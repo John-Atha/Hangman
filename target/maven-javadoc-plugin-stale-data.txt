@@ -1,0 +1,89 @@
+@options
+@argfile
+--class-path
+'/home/atha/Desktop/hangman-repo/target/test-classes:/home/atha/.m2/repository/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2.jar:/home/atha/.m2/repository/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.jar:/home/atha/.m2/repository/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.jar:/home/atha/.m2/repository/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2.jar:/home/atha/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.1/junit-jupiter-api-5.8.1.jar:/home/atha/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/atha/.m2/repository/org/junit/platform/junit-platform-commons/1.8.1/junit-platform-commons-1.8.1.jar:/home/atha/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/atha/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.1/junit-jupiter-engine-5.8.1.jar:/home/atha/.m2/repository/org/junit/platform/junit-platform-engine/1.8.1/junit-platform-engine-1.8.1.jar'
+--module-path
+'/home/atha/.m2/repository/org/controlsfx/controlsfx/11.1.0/controlsfx-11.1.0.jar:/home/atha/.m2/repository/com/dlsc/formsfx/formsfx-core/11.3.2/formsfx-core-11.3.2.jar:/home/atha/.m2/repository/org/kordamp/ikonli/ikonli-core/12.2.0/ikonli-core-12.2.0.jar:/home/atha/.m2/repository/org/kordamp/ikonli/ikonli-javafx/12.2.0/ikonli-javafx-12.2.0.jar:/home/atha/.m2/repository/org/kordamp/bootstrapfx/bootstrapfx-core/0.4.0/bootstrapfx-core-0.4.0.jar:/home/atha/Desktop/hangman-repo/target/classes:/home/atha/.m2/repository/org/json/json/20211205/json-20211205.jar:/home/atha/.m2/repository/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-linux.jar:/home/atha/.m2/repository/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-linux.jar:/home/atha/.m2/repository/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-linux.jar:/home/atha/.m2/repository/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-linux.jar'
+--patch-module
+main.hangman='/home/atha/Desktop/hangman-repo/src/main/java'
+-encoding
+'UTF-8'
+-public
+--module-source-path
+'/home/atha/Desktop/hangman-repo/target/site/testapidocs/src'
+-author
+-bottom
+'Copyright &#169; 2021. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/atha/Desktop/hangman-repo/target/site/testapidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'hangman 1.0-SNAPSHOT Test API'
+-group
+'packagemyyy' '*'
+-link
+'../apidocs'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' '/home/atha/Desktop/hangman-repo/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'hangman 1.0-SNAPSHOT Test API'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/NotFoundException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/NoDictsException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/ShownCharException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/UndersizeException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/InvalidCountException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/LoadedDictionaryException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/GameOverException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/InvalidRangeException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/exceptions/UnbalancedException.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/module-info.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/helpers/Round.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/helpers/HeaderState.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/helpers/MyStyles.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/helpers/Row.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/popups/StatsPopUp.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/popups/ErrorPopUp.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/popups/SolutionPopUp.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/popups/CreateDictPopUp.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/popups/LoadDictPopUp.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/popups/RoundsPopUp.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/sections/TopMenu.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/sections/CharactersLeft.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/sections/CharacterForm.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/sections/WordDisplay.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/sections/UpdatableSection.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/sections/GameHeader.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/components/sections/ChancesImage.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/main/hangman/App.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/main/hangman/Game.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/read/DataFetcher.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/read/WordsPicker.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/read/DictReader.java'
+'/home/atha/Desktop/hangman-repo/src/main/java/read/DictMaker.java'
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/module-search-index.zip = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/package-search-index.zip = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/package-search-index.js = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/script.js = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/member-search-index.js = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/overview-tree.html = 1640975517326
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/deprecated-list.html = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/member-search-index.zip = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/index-all.html = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/type-search-index.zip = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/type-search-index.js = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/allclasses.html = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/element-list = 1640975517226
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/stylesheet.css = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/search.js = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/allpackages-index.html = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/serialized-form.html = 1640975517274
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/index.html = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/constant-values.html = 1640975517274
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/help-doc.html = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/allclasses-index.html = 1640975517354
+/home/atha/Desktop/hangman-repo/target/site/testapidocs/module-search-index.js = 1640975517342

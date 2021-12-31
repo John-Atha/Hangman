@@ -72,12 +72,22 @@ those that are shown as `pop-ups` and those that are `sections` of the main layo
     * For the reading of a dictionary:
         * The class `DictReader` receives the ID of a dictionary and returns an array with its words, or throws a `FileNotFoundException`.
 
-
-
 ### The `Game` class
 * This class contains all the state of the game running and the methods used by the GUI to manipulate it (the state).
 * A draft sketch that I have drawn and outlines the functionality of the class is the following:
 <img src="sketch.jpg" width="100%" /> 
+
+### Javadoc Document of a class
+* I used javadoc to document the `DictMaker` class
+* The source code of the class is at: [DictMaker.java](src/main/java/read/DictMaker.java)
+* The html with the documentation is at: [DictMaker.html](target/site/apidocs/main.hangman/read/DictMaker.html)
+* A copy of the html (as pdf): [DictMakerJavadoc.pdf](wanted_javadoc/DictMakerJavadoc.pdf)
+
+<img src="wanted_javadoc/screen1.png" width="500px" height="auto">
+<img src="wanted_javadoc/screen2.png" width="500px" height="auto">
+<img src="wanted_javadoc/screen3.png" width="500px" height="auto">
+<img src="wanted_javadoc/screen4.png" width="500px" height="auto">
+<img src="wanted_javadoc/screen5.png" width="500px" height="auto">
 
 
 

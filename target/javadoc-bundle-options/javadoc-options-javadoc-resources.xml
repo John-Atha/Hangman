@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<javadocOptions>
+  <groups>
+    <group>
+      <title>packagemyyy</title>
+      <packages>*</packages>
+    </group>
+  </groups>
+  <docletArtifacts>
+    <docletArtifact />
+  </docletArtifacts>
+  <tagletArtifacts>
+    <tagletArtifact />
+  </tagletArtifacts>
+  <links>
+    <link>../apidocs</link>
+  </links>
+  <javadocResourcesDirectory>src/test/javadoc</javadocResourcesDirectory>
+</javadocOptions>
