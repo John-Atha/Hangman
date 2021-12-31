@@ -1,7 +1,6 @@
 package components.sections;
 
 import components.popups.*;
-import components.sections.GameHeader;
 import exceptions.GameOverException;
 import exceptions.NoDictsException;
 import helpers.MyStyles;
@@ -13,9 +12,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.hangman.App;
 import main.hangman.Game;
-import read.WordsPicker;
 
 public class TopMenu {
     private MenuBar menuBar;

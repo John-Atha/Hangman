@@ -3,7 +3,6 @@ package components.popups;
 import helpers.MyStyles;
 import helpers.Row;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;

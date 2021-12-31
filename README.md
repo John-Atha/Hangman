@@ -15,14 +15,18 @@
 * The remaining chances are shown in the left part of the screen `Chances Remaining`.
 * At each move, he/she has to specify a new position and the letter that is hidding there using the `Character Form` on the bottom of the screen.
 * For each position, there are some character suggestions shown by the app on the right section of the screen `Characters Left`.
-    * These are the characters that can possibly be a match for this position, sorted (inversely) by their possibility.
+    * These are the characters that can possibly be a match for this position, sorted (inversely) by their `possibility`.
     * I made the assumption that the user is not obligated to pick one of these characters when making a move.
+* At each round, user also gathers some points, which are re-initialized to 0 when a new round begins.
+  * According to the `possibility` of a character for a certain position, the user is being rewarded with a different amount of points for finding this character.
+  * Each time a user makes a wrong guess, he/she loses 15 points.
+* Some basic information ab the state of the game are also shown at the `Game Header`
 * Using the `Top Menu`, the user can:
     * start a new game `Application->Start` (re-starts the running round and counts a loss)
     * load a dictionary `Application->Load` (re-starts the running round and counts a loss)
     * create a new dictionary `Application->Create`
     * close the app `Application->Exit`
-    * see some statistics for the dictionaries loaded `Details->Dictionary`
+    * see some statistics for all the dictionaries loaded `Details->Dictionary`
     * see some basic information for the last 5 rounds `Details->Rounds`
     * see the solution of the running round `Details->Solution` (stops the running round and counts a loss)
 
@@ -50,7 +54,7 @@ those that are shown as `pop-ups` and those that are `sections` of the main layo
         * `top-menu`, `game-header`, `characters-form`, etc.
 * Bearing in mind that the sections should be updated whenever the state of the game is being modified:
     * I designed the classes to be constructed based on a 'Game` object
-    * I built the abstract class `UpdatableSection` which is being extended by all the sections and therefore forces them to support and `update` method.
+    * I built the abstract class `UpdatableSection` which is being extended by all the sections and therefore forces them to support an `update` method.
     * So, whenever I need to `synchronize` one of the components with the game's state, I use this `update` method.
     
 #### Exceptions

@@ -1,6 +1,5 @@
 package components.popups;
 
-import helpers.HeaderState;
 import helpers.MyStyles;
 import helpers.Round;
 import javafx.fxml.FXML;
@@ -15,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RoundsPopUp {
