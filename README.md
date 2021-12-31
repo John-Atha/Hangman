@@ -78,11 +78,11 @@ those that are shown as `pop-ups` and those that are `sections` of the main layo
 <img src="sketch.jpg" width="100%" /> 
 
 ### Javadoc Document of a class
+* To produce the docs, run: mvn site
 * I used javadoc to document the `DictMaker` class
 * The source code of the class is at: [DictMaker.java](src/main/java/read/DictMaker.java)
-* The html with the documentation is at: [DictMaker.html](target/site/apidocs/main.hangman/read/DictMaker.html)
+* The html file, (after running `mvn site`) is at: target/site/apidocs/main.hangman/read/DictMaker.html
 * A copy of the html (as pdf): [DictMakerJavadoc.pdf](wanted_javadoc/DictMakerJavadoc.pdf)
-
 <img src="wanted_javadoc/screen1.png" width="100%" height="auto">
 <img src="wanted_javadoc/screen2.png" width="100%" height="auto">
 <img src="wanted_javadoc/screen3.png" width="100%" height="auto">
