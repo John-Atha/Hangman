@@ -83,11 +83,11 @@ those that are shown as `pop-ups` and those that are `sections` of the main layo
 * The html with the documentation is at: [DictMaker.html](target/site/apidocs/main.hangman/read/DictMaker.html)
 * A copy of the html (as pdf): [DictMakerJavadoc.pdf](wanted_javadoc/DictMakerJavadoc.pdf)
 
-<img src="wanted_javadoc/screen1.png" width="500px" height="auto">
-<img src="wanted_javadoc/screen2.png" width="500px" height="auto">
-<img src="wanted_javadoc/screen3.png" width="500px" height="auto">
-<img src="wanted_javadoc/screen4.png" width="500px" height="auto">
-<img src="wanted_javadoc/screen5.png" width="500px" height="auto">
+<img src="wanted_javadoc/screen1.png" width="100%" height="auto">
+<img src="wanted_javadoc/screen2.png" width="100%" height="auto">
+<img src="wanted_javadoc/screen3.png" width="100%" height="auto">
+<img src="wanted_javadoc/screen4.png" width="100%" height="auto">
+<img src="wanted_javadoc/screen5.png" width="100%" height="auto">
 
 
 
