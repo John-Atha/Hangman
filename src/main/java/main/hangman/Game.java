@@ -385,19 +385,6 @@ public class Game {
             }
         }
         System.out.println(this.available_chars);
-
-        // for (int i : this.shown_indexes) {
-        //     shown_chars.add(this.word.charAt(i));
-        // }
-        //
-        // for (String word : this.words_left) {
-        //     for (Character c : word.toCharArray()) {
-        //         if (!shown_chars.contains(c)) {
-        //             this.available_chars.add(c);
-        //         }
-        //     }
-        // }
-        // System.out.println(this.available_chars);
     }
 
     private void saveGame() {
