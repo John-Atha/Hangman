@@ -6,3 +6,4 @@ target/site/apidocs/main.hangman/exceptions
 target/site/apidocs/main.hangman/helpers
 target/site/apidocs/main.hangman/main
 target/site/apidocs/main.hangman/test
+target/site/testapidocs/main.hangman/*
