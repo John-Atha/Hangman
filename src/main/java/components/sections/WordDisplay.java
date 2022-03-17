@@ -49,7 +49,7 @@ public class WordDisplay extends UpdatableSection {
                 char c = shown.contains(i) ? this.game.getWord().charAt(i) : '_';
 
                 VBox char_container = new VBox();
-                char_container.setSpacing(15);
+                char_container.setSpacing(5);
 
                 Label char_display = new Label(Character.toString(c));
                 char_display.setStyle(MyStyles.letter);

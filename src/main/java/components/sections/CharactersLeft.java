@@ -50,21 +50,21 @@ public class CharactersLeft extends UpdatableSection {
                     VBox chars_column = new VBox();
                     Label index_ = new Label(Integer.toString(index+1));
                     index_.setStyle(MyStyles.label);
-                    index_.setPadding(new Insets(30));
+                    index_.setPadding(new Insets(10));
                     chars_column.getChildren().add(index_);
                     chars_column.setStyle(MyStyles.border);
                     ArrayList<Character> av_chars = this.game.getAvailable_chars().get(index);
                     int length = Math.min(av_chars.size(), 5);
                     for (char c : av_chars.subList(0, length)) {
                         Label char_ = new Label(Character.toString(c));
-                        char_.setStyle(MyStyles.label);
-                        char_.setPadding(new Insets(30));
+                        char_.setStyle(MyStyles.suggestion_char);
+                        char_.setPadding(new Insets(5));
                         chars_column.getChildren().add(char_);
                     }
                     if (av_chars.size()>=5) {
                         Label more = new Label("...");
                         more.setStyle((MyStyles.label));
-                        more.setPadding(new Insets(10));
+                        more.setPadding(new Insets(5));
                         chars_column.getChildren().add(more);
                     }
                     if (this.game.isPlaying() && (av_chars==null || av_chars.isEmpty())) {

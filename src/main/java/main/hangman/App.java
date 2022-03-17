@@ -44,7 +44,7 @@ public class App extends Application {
         page.getChildren().add(menuBar);
         page.getChildren().add(main);
 
-        Scene scene = new Scene(page, 2000, 1800);
+        Scene scene = new Scene(page, 1300, 800);
         stage.setScene(scene);
         stage.show();
     }

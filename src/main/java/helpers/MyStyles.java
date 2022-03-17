@@ -5,13 +5,13 @@ package helpers;
 public class MyStyles {
 
     public static String menu =
-            "-fx-font-size: 50px;";
+            "-fx-font-size: 20px;";
 
     public static String menuItem =
-            "-fx-font-size: 40px;";
+            "-fx-font-size: 15px;";
 
     public static String title =
-            "-fx-font-size: 40px;" +
+            "-fx-font-size: 20px;" +
             "-fx-font-weight: bold;";
 
     public static String button =
@@ -23,42 +23,38 @@ public class MyStyles {
             "-fx-background-radius: 3,2,1;" +
             "-fx-padding: 10 30 10 30;" +
             "-fx-text-fill: black;" +
-            "-fx-font-size: 30px;";
+            "-fx-font-size: 20px;";
 
     public static String textField =
-            "-fx-font-size: 30px;" +
-            "-fx-border-insets: 10px;" +
-            "-fx-background-insets: 10px;"+
-            "-fx-max-width: 500px";
+            "-fx-font-size: 15px;" +
+            "-fx-border-insets: 3px;" +
+            "-fx-background-insets: 3px;"+
+            "-fx-max-width: 300px";
 
     public static String label =
-            "-fx-font-size: 30px;";
+            "-fx-font-size: 15px;";
+
+    public static String suggestion_char =
+            "-fx-font-size: 10px;";
 
     public static String success =
-            "-fx-font-size: 30px;" +
+            "-fx-font-size: 15px;" +
             "-fx-fill: #2e8a00;";
 
     public static String error =
-            "-fx-font-size: 30px;" +
+            "-fx-font-size: 15px;" +
             "-fx-fill: red;";
 
     public static String tableColumn =
-            "-fx-font-size: 30px;" +
-            "-fx-padding: 10;"+
+            "-fx-font-size: 15px;" +
+            "-fx-padding: 5;"+
             "-fx-alignment: CENTER";
 
-    public static String container =
-            "-fx-border-color: black" +
-            "-fx-background-color: red";
-
-    public static String char_ =
-            "-fx-padding: 20px;";
-
     public static String letter =
-            "-fx-font-size: 40px;";
+            "-fx-font-size: 15px;";
 
     public static String index =
-            "-fx-font-size: 30px;";
+            "-fx-font-size: 15px;";
 
     public static String border =
             "-fx-border-color: red;\n" +

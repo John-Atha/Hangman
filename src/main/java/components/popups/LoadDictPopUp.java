@@ -97,7 +97,7 @@ public class LoadDictPopUp {
         this.vBox.getChildren().add(this.message);
 
         this.vBox.setStyle(
-                "-fx-padding: 100px 10px 0px 10px"
+                "-fx-padding: 50px 10px 0px 10px"
         );
         this.vBox.setAlignment(Pos.TOP_CENTER);
         this.hBox1.setAlignment(Pos.CENTER);
@@ -116,7 +116,7 @@ public class LoadDictPopUp {
             }
         });
 
-        Scene scene = new Scene(vBox, 1800, 1000);
+        Scene scene = new Scene(vBox, 800, 600);
         popup.setScene(scene);
     }
 

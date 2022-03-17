@@ -76,7 +76,7 @@ public class CreateDictPopUp {
         this.vBox.getChildren().add(this.message);
 
         this.vBox.setStyle(
-                "-fx-padding: 100px 10px 0px 10px"
+                "-fx-padding: 50px 10px 0px 10px"
         );
 
         this.vBox.setAlignment(Pos.TOP_CENTER);
@@ -99,7 +99,7 @@ public class CreateDictPopUp {
             }
         });
 
-        Scene scene = new Scene(vBox, 1800, 1000);
+        Scene scene = new Scene(vBox, 800, 600);
         popup.setScene(scene);
     }
 

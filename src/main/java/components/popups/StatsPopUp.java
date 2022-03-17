@@ -100,7 +100,7 @@ public class StatsPopUp {
 
         this.vBox.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vBox, 1800, 1000);
+        Scene scene = new Scene(vBox, 800, 600);
         popup.setScene(scene);
     }
 

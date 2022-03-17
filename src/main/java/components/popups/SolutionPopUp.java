@@ -61,7 +61,7 @@ public class SolutionPopUp {
             this.vBox.setSpacing(10);
             this.popup = new Stage();
             this.popup.setTitle("Solution");
-            Scene scene = new Scene(vBox, 1800, 1000);
+            Scene scene = new Scene(vBox, 800, 600);
             popup.setScene(scene);
             return;
         }
@@ -99,7 +99,7 @@ public class SolutionPopUp {
         this.vBox.setAlignment(Pos.CENTER);
         this.popup = new Stage();
         this.popup.setTitle("Solution");
-        Scene scene = new Scene(vBox, 1800, 1000);
+        Scene scene = new Scene(vBox, 800, 600);
         popup.setScene(scene);
     }
 

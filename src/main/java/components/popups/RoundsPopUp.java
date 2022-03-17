@@ -100,7 +100,7 @@ public class RoundsPopUp {
         }
 
         this.container.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(container, 1800, 1000);
+        Scene scene = new Scene(container, 800, 600);
         popup.setScene(scene);
     }
 
