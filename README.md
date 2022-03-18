@@ -5,6 +5,7 @@
 * This repo contains the source code of the course's project. 
 * The project is a [JAVAFX](https://openjfx.io/) project.
 * It was developed in IntelliJ IDEA.
+* BEFORE RUNNING THE PROJECT: cd into the root directory
 
 ### Logic of the game
 
