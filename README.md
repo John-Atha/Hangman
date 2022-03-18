@@ -73,9 +73,9 @@ those that are shown as `pop-ups` and those that are `sections` of the main layo
         * The class `DictReader` receives the ID of a dictionary and returns an array with its words, or throws a `FileNotFoundException`.
 
 #### Some `Open Library IDs` that lead to certain cases:
-    * OL45883W => success
-    * OL262452W => undersize exception
-    * OL31390631M => invalidCount exception
+    * OL45883W=> success
+    * OL262452W=> undersize exception
+    * OL31390631M=> invalidCount exception
 
 ### Some important conventions to keep the project simple
 * In the cases when I had to import some static files from the project's directory:
