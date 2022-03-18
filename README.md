@@ -71,7 +71,8 @@ those that are shown as `pop-ups` and those that are `sections` of the main layo
         * The class `DictMaker`, uses the `WordsPicker` to get the list of the words` and saves the dictionary in the file `medialab/hangman_DICTIONARY-id.txt` or throws one of the exceptions  `InvalidCountException`, `InvalidRangeException`, `UnbalancedException`, `UndersizeException`.
     * For the reading of a dictionary:
         * The class `DictReader` receives the ID of a dictionary and returns an array with its words, or throws a `FileNotFoundException`.
-* Some `“Open Library IDs` that lead to certain cases:
+
+#### Some `Open Library IDs` that lead to certain cases:
     * OL45883W => success
     * OL262452W => undersize exception
     * OL31390631M => invalidCount exception
