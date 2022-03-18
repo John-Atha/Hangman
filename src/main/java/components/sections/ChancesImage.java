@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import main.hangman.Game;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -39,7 +40,20 @@ public class ChancesImage extends UpdatableSection {
         int chances = this.game.getChances_remaining();
 
         try {
-            FileInputStream fileStream = new FileInputStream("src/main/resources/images/" + (7-chances) + ".jpg");
+            File directory = new File("./");
+            String current_dir = directory.getAbsolutePath();
+            System.out.println("current dir:" + current_dir);
+            String images_path = null;
+            if (current_dir.contains("Hangman")) {
+                images_path = "src/main/resources/images/";
+            }
+            else {
+                images_path = "Hangman/src/main/resources/images/";
+            }
+            System.out.println("images path:" + images_path);
+            String image_ = images_path + (7-chances) + ".jpg";
+            System.out.println(image_);
+            FileInputStream fileStream = new FileInputStream(image_);
             this.image = new Image(fileStream);
             this.imageView = new ImageView(this.image);
         }

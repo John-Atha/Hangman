@@ -197,7 +197,18 @@ public class DictMaker {
      * </ul>
      */
     public void write() {
-        String filename = "medialab/hangman_DICTIONARY-" + this.ID_dict + ".txt";
+        File directory = new File("./");
+        String current_dir = directory.getAbsolutePath();
+        String file_path = null;
+        if (current_dir.contains("Hangman")) {
+            file_path = "medialab/";
+        }
+        else {
+            file_path = "Hangman/medialab/";
+        }
+        System.out.println("current:" + directory.getAbsolutePath());
+        System.out.println("chose:" + file_path);
+        String filename = file_path + "hangman_DICTIONARY-" + this.ID_dict + ".txt";
         File file = new File(filename);
         try {
             if (file.createNewFile()) {

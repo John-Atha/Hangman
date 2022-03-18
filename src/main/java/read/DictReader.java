@@ -27,14 +27,29 @@ public class DictReader {
     }
 
     public void read() throws FileNotFoundException {
-        File folder = new File("medialab");
+        File directory = new File("./");
+        String current_dir = directory.getAbsolutePath();
+        String medialab_path = null;
+        if (current_dir.contains("Hangman")) {
+            medialab_path = "medialab";
+        }
+        else {
+            medialab_path = "Hangman/medialab";
+        }
+        System.out.println("current:" + directory.getAbsolutePath());
+        System.out.println("chose:" + medialab_path);
+        File folder = new File(medialab_path);
+        System.out.println(folder.listFiles());
         File[] listOfFiles = folder.listFiles();
+        System.out.println(listOfFiles);
         boolean found = false;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile() && listOfFiles[i].getName().equals(this.getName())) {
-                this.file = listOfFiles[i];
-                found = true;
-                break;
+        if (listOfFiles!=null) {
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isFile() && listOfFiles[i].getName().equals(this.getName())) {
+                    this.file = listOfFiles[i];
+                    found = true;
+                    break;
+                }
             }
         }
         if (found) {

@@ -69,15 +69,15 @@ public class GameHeader extends UpdatableSection {
         column3.setCellValueFactory(new PropertyValueFactory<>("points"));
         TableColumn<HeaderState, Integer> column4 = new TableColumn<>("Success Rate");
         column4.setCellValueFactory(new PropertyValueFactory<>("rate"));
-        TableColumn<HeaderState, Integer> column5 = new TableColumn<>("Hidden word");
-        column5.setCellValueFactory(new PropertyValueFactory<>("hidden_word"));
+//        TableColumn<HeaderState, Integer> column5 = new TableColumn<>("Hidden word");
+//        column5.setCellValueFactory(new PropertyValueFactory<>("hidden_word"));
 
         this.table.getColumns().clear();
         this.table.getColumns().add(column1);
         this.table.getColumns().add(column2);
         this.table.getColumns().add(column3);
         this.table.getColumns().add(column4);
-        this.table.getColumns().add(column5);
+//        this.table.getColumns().add(column5);
 
         this.table.getItems().clear();
         this.table.getItems().add(this.state);
@@ -86,13 +86,13 @@ public class GameHeader extends UpdatableSection {
         column2.setStyle(MyStyles.tableColumn);
         column3.setStyle(MyStyles.tableColumn);
         column4.setStyle(MyStyles.tableColumn);
-        column5.setStyle(MyStyles.tableColumn);
+//        column5.setStyle(MyStyles.tableColumn);
 
-        column1.prefWidthProperty().bind(this.table.widthProperty().multiply(0.199));
-        column2.prefWidthProperty().bind(this.table.widthProperty().multiply(0.19));
-        column3.prefWidthProperty().bind(this.table.widthProperty().multiply(0.199));
-        column4.prefWidthProperty().bind(this.table.widthProperty().multiply(0.19));
-        column5.prefWidthProperty().bind(this.table.widthProperty().multiply(0.19));
+        column1.prefWidthProperty().bind(this.table.widthProperty().multiply(0.2499));
+        column2.prefWidthProperty().bind(this.table.widthProperty().multiply(0.22));
+        column3.prefWidthProperty().bind(this.table.widthProperty().multiply(0.249));
+        column4.prefWidthProperty().bind(this.table.widthProperty().multiply(0.22));
+//        column5.prefWidthProperty().bind(this.table.widthProperty().multiply(0.19));
 
 
         this.message = new Text();

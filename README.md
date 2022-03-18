@@ -71,6 +71,21 @@ those that are shown as `pop-ups` and those that are `sections` of the main layo
         * The class `DictMaker`, uses the `WordsPicker` to get the list of the words` and saves the dictionary in the file `medialab/hangman_DICTIONARY-id.txt` or throws one of the exceptions  `InvalidCountException`, `InvalidRangeException`, `UnbalancedException`, `UndersizeException`.
     * For the reading of a dictionary:
         * The class `DictReader` receives the ID of a dictionary and returns an array with its words, or throws a `FileNotFoundException`.
+* Some `“Open Library IDs` that lead to certain cases:
+    * OL45883W => success
+    * OL262452W => undersize exception
+    * OL31390631M => invalidCount exception
+
+### Some important conventions to keep the project simple
+* In the cases when I had to import some static files from the project's directory:
+    * such as:
+        * loading a txt dictionary from the medialab directory,
+        * creating a new dictionary and saving it to the medialab directory
+        * displaying an image from the images directory,
+    * When declaring the static paths, I have considered that the project will be being run
+        * either from the root directory (Hangman)
+        * or from one level above it <br/>
+    * As a result, if you run the project from another directory, you will not be able to use these features
 
 ### The `Game` class
 * This class contains all the state of the game running and the methods used by the GUI to manipulate it (the state).

@@ -45,10 +45,27 @@ public class WordsPicker {
         fetcher.fetchData();
         JSONObject data = fetcher.getRequestData();
         try {
-            String description = data.getString("description");
+            System.out.println("1");
+            JSONObject value = data.getJSONObject("description");
+            System.out.println("2");
+            String description = value.getString("value");
             setDescription(description);
         }
+        catch (JSONException e2) {
+            System.out.println("e2");
+            try {
+                String description = data.getString("description");
+                setDescription(description);
+            }
+            catch (Exception e3) {
+                System.out.println("e3");
+                System.out.println(e3);
+                throw new NotFoundException();
+            }
+        }
         catch (Exception e) {
+            System.out.println("e");
+            System.out.println(e);
             throw new NotFoundException();
         }
     }

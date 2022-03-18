@@ -122,6 +122,7 @@ public class CreateDictPopUp {
 
         }
         catch (InvalidCountException | InvalidRangeException | UndersizeException | UnbalancedException | NotFoundException e) {
+            System.out.println(e);
             this.message.setText(e.getMessage() + ", please try another URL.");
             this.message.setStyle(MyStyles.error);
         }
